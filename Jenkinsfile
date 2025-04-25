@@ -4,12 +4,12 @@ pipeline {
     agent any
     environment {
         ENV_TYPE = "production"
-        PORT = 3741
+        PORT = 3851
         NAMESPACE = "picture-verse-com"
         REGISTRY_HOSTNAME = "v4fli4"
         REGISTRY = "registry.hub.docker.com"
-        PROJECT = "picture-verse"
-        DEPLOYMENT_NAME = "picture-verse-deployment"
+        PROJECT = "picture-verse-admin"
+        DEPLOYMENT_NAME = "picture-verse-admin-deployment"
         IMAGE_NAME = "${env.BUILD_ID}_${env.ENV_TYPE}_${env.GIT_COMMIT}"
         DOCKER_BUILD_NAME = "${env.REGISTRY_HOSTNAME}/${env.PROJECT}:${env.IMAGE_NAME}"
     }
