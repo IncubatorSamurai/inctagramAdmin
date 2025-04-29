@@ -1,10 +1,9 @@
 'use client'
-import { Link, useRouter } from '@/i18n/routing'
+import { useRouter } from '@/i18n/routing'
 import { useLoginMutation } from '@/shared/api/auth/authApi'
 import { PATH } from '@/shared/config/routes'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
-import { Typography } from '@/shared/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -71,9 +70,6 @@ export const SignInForm = () => {
         type="password"
       />
       <div className={s.box}>
-        <Link href={PATH.FORGOTPASSWORD} className={s.link}>
-          <Typography className={s.linkTitle}>{tAuth('forgotPassword')}</Typography>
-        </Link>
         <Button fullWidth={true} disabled={disabled}>
           {tAuth('signIn')}
         </Button>
