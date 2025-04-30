@@ -19,4 +19,5 @@ export const PATH = {
   PUBLIC: '/',
   PRIVACY_POLICY: '/auth/privacypolicies',
   TERMS_OF_SERVICE: '/auth/termsofservice',
+  USERS_LIST: '/userslist',
 }

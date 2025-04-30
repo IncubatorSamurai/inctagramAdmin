@@ -5,26 +5,21 @@ import { Typography } from '@/shared/ui/typography'
 import { Button } from '@/shared/ui/button'
 type LogOut = {
   trigger: React.ReactNode
-  email: string
   logOut: () => void
 }
-export const LogOutModal = ({ logOut, email, trigger }: LogOut) => {
+export const LogOutModal = ({ logOut, trigger }: LogOut) => {
   return (
     <Modal title="Log out" className={s.LogOutModal} trigger={trigger}>
       <div className={s.LogOutModalContainer}>
-        <Typography variant="regular_text_14">
-          Are you really want to log out of your account {email}?
-        </Typography>
+        <Typography variant="regular_text_14">Are you really want to log out?</Typography>
         <div className={s.LogOutModalBtn}>
           <DialogClose asChild>
-            <Button variant="primary" onClick={logOut} >
+            <Button variant="primary" onClick={logOut}>
               Yes
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button variant="primary">
-              No
-            </Button>
+            <Button variant="primary">No</Button>
           </DialogClose>
         </div>
       </div>

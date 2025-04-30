@@ -1,26 +1,28 @@
 'use client'
 import { useRouter } from '@/i18n/routing'
-import { useLoginMutation } from '@/shared/api/auth/authApi'
 import { PATH } from '@/shared/config/routes'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import s from './SignInForm.module.scss'
-import { ErrorResponse } from '@/shared/types/auth'
 import { setIsLoggedIn } from '@/shared/store/appSlice/appSlice'
 import { useAppDispatch } from '@/shared/hooks'
 import { SignInSchema, SignInSchemaData } from '@/shared/schemes/signInSchema'
 import { useTranslations } from 'next-intl'
+import { useMutation } from '@apollo/client'
+import { LOGIN_ADMIN } from '@/shared/graphql'
+import { toBase64Modern } from '@/shared/utils/Base64Convert'
 
 export const SignInForm = () => {
-  const [errorMessage, setEmailMessage] = useState('')
-  const [login, { data, error }] = useLoginMutation()
+  const [errorMessage, setErrorMessage] = useState('')
   const dispatch = useAppDispatch()
   const tAuth = useTranslations('auth')
 
   const router = useRouter()
+
+  const [loginAdmin] = useMutation(LOGIN_ADMIN)
 
   const { register, handleSubmit, formState } = useForm<SignInSchemaData>({
     mode: 'onTouched',
@@ -33,24 +35,23 @@ export const SignInForm = () => {
 
   const { errors: validateError, isValid } = formState
 
-  useEffect(() => {
-    if (data?.accessToken) {
-      localStorage.setItem('access_token', data?.accessToken)
-      dispatch(setIsLoggedIn({ isLoggedIn: true }))
-      router.push(PATH.HOME)
-      return
-    }
-
-    const errorMessage = error as ErrorResponse<string>
-    setEmailMessage(errorMessage?.data?.messages || validateError?.email?.message || '')
-  }, [dispatch, router, error, validateError, data?.accessToken])
-
-  const onSubmit = (data: SignInSchemaData) => {
-    login({ email: data.email, password: data.password })
-      .unwrap()
-      .then(() => {
-        localStorage.setItem('email', data?.email)
+  const onSubmit = async (data: SignInSchemaData) => {
+    try {
+      const response = await loginAdmin({
+        variables: { email: data?.email, password: data?.password },
       })
+      const logged = response.data.loginAdmin.logged
+      if (logged) {
+        const auth = data?.email + ':' + data?.password
+        dispatch(setIsLoggedIn({ isLoggedIn: response.data.loginAdmin.logged }))
+        localStorage.setItem('authorization', toBase64Modern(auth))
+        router.push(PATH.USERS_LIST)
+      } else {
+        setErrorMessage('Incorrect login or password')
+      }
+    } catch (error) {
+      console.log('request error: ' + error)
+    }
   }
   const disabled = !isValid
   return (
