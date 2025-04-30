@@ -1,10 +1,6 @@
 export const PATH = {
   HOME: '/home',
   SIGNIN: '/auth/signin',
-  SIGNUP: '/auth/signup',
-  NEW_PASSWORD: '/auth/create-new-password',
-  FORGOTPASSWORD: '/auth/forgotpassword',
-  REGISTRCONFIRMATION: '/auth/registration-confirmation',
   POSTS: '/posts',
   PAYMENTS: '/payments',
   STATISTICS: '/statistics',
@@ -15,9 +11,8 @@ export const PATH = {
   MESSENGER: '/messenger',
   MYPROFILE: '/profile',
   CREATE: '/create',
-  LINK_EXPIRED: '/auth/linkexpired',
   PUBLIC: '/',
-  PRIVACY_POLICY: '/auth/privacypolicies',
-  TERMS_OF_SERVICE: '/auth/termsofservice',
   USERS_LIST: '/userslist',
+  PAYMENTS_LIST: '/paymentslist',
+  POSTS_LIST: '/postslist',
 }
