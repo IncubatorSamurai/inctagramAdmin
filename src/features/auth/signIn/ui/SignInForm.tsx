@@ -11,9 +11,8 @@ import { setIsLoggedIn } from '@/shared/store/appSlice/appSlice'
 import { useAppDispatch } from '@/shared/hooks'
 import { SignInSchema, SignInSchemaData } from '@/shared/schemes/signInSchema'
 import { useTranslations } from 'next-intl'
-import { useMutation } from '@apollo/client'
-import { LOGIN_ADMIN } from '@/shared/graphql'
 import { toBase64Modern } from '@/shared/utils/Base64Convert'
+import { useLoginAdminMutation } from '@/shared/graphql/loginAdmin.generated'
 
 export const SignInForm = () => {
   const [errorMessage, setErrorMessage] = useState('')
@@ -22,7 +21,7 @@ export const SignInForm = () => {
 
   const router = useRouter()
 
-  const [loginAdmin] = useMutation(LOGIN_ADMIN)
+  const [login] = useLoginAdminMutation()
 
   const { register, handleSubmit, formState } = useForm<SignInSchemaData>({
     mode: 'onTouched',
@@ -35,15 +34,15 @@ export const SignInForm = () => {
 
   const { errors: validateError, isValid } = formState
 
-  const onSubmit = async (data: SignInSchemaData) => {
+  const onSubmit = async ({ email, password }: SignInSchemaData) => {
     try {
-      const response = await loginAdmin({
-        variables: { email: data?.email, password: data?.password },
+      const { data } = await login({
+        variables: { email, password },
       })
-      const logged = response.data.loginAdmin.logged
+      const logged = data?.loginAdmin.logged
       if (logged) {
-        const auth = data?.email + ':' + data?.password
-        dispatch(setIsLoggedIn({ isLoggedIn: response.data.loginAdmin.logged }))
+        const auth = email + ':' + password
+        dispatch(setIsLoggedIn({ isLoggedIn: logged }))
         localStorage.setItem('authorization', toBase64Modern(auth))
         router.push(PATH.USERS_LIST)
       } else {
