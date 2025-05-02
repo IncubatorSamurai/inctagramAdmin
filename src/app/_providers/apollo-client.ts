@@ -3,7 +3,7 @@ import { setContext } from '@apollo/client/link/context'
 import { getMainDefinition } from '@apollo/client/utilities'
 
 const httpLink = createHttpLink({
-  uri: 'https://inctagram.work/api/v1/graphql',
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_SCHEMA,
 })
 
 const authLink = setContext((_, { headers, token }) => {
