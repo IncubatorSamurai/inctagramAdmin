@@ -7,6 +7,7 @@ import '@/app/_styles/ui/index.scss'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import { StoreProvider } from '@/app/_providers'
+import {GqlProvider} from "@/app/_providers/GQLProvider";
 
 export const metadata: Metadata = {
   title: 'Inctagram',
@@ -21,7 +22,11 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+            <GqlProvider>
+                {children}
+            </GqlProvider>
+        </StoreProvider>
       </body>
     </html>
   )

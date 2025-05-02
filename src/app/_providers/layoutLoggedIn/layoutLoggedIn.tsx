@@ -14,7 +14,7 @@ export default function LayoutLoggedIn({
 
   return (
     <div className={s.layout_container}>
-      {isLoggedIn && <Sidebar />}
+      {isLoggedIn && <Sidebar isAdmin={true} />}
       <Scrollbar type={'auto'} className={s.layout_scroll}>
         {children}
       </Scrollbar>

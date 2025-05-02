@@ -32,7 +32,7 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <AuthProvider>
-        <Header headerTitle={'Inctagram'} />
+        <Header headerTitle={'Inctagram'} isAdmin={true} />
         <div className={s.container}>
           <LayoutLoggedIn>{children}</LayoutLoggedIn>
         </div>
