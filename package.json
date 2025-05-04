@@ -11,7 +11,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build:production": "pnpm run build",
-    "codegen": "graphql-codegen --watch"
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",

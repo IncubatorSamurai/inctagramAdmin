@@ -1,21 +1,24 @@
 .usersList {
   padding: 76px 24px;
-display: flex;
+  display: flex;
   flex-direction: column;
   row-gap: 24px;
 
-  .userList_header{
+  .userList_header {
     display: flex;
     justify-content: space-between;
   }
-  .userList_header_search{
-width: 100%;
+
+  .userList_header_search {
+    width: 100%;
     max-width: 664px;
-    input{
+
+    input {
       width: 100%;
     }
   }
-  .userList_header_select{
+
+  .userList_header_select {
     width: 100%;
     max-width: 234px;
 

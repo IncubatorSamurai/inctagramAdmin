@@ -35,8 +35,8 @@ export const UsersListData = () => {
             setPageSize(value)
             setPageNumber(1)
           }}
-          currentPage={pagination.page}
-          pageSize={pagination.pageSize}
+          currentPage={pageNumber}
+          pageSize={pageSize}
           totalCount={pagination.totalCount}
         />
       )}

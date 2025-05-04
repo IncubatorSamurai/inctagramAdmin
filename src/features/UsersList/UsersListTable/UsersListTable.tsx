@@ -35,7 +35,7 @@ export const UsersListTable = ({ users }: Props) => {
         </TableRow>
       </TableHead>
 
-      <TableBody style={{ height: '300px' }}>
+      <TableBody>
         {users.map(user => (
           <TableRow key={user.id}>
             <TableCell>

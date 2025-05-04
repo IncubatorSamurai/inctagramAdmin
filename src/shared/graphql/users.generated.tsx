@@ -13,11 +13,11 @@ export type GetUsersQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'UsersPaginationModel', users: Array<{ __typename?: 'User', id: number, userName: string, createdAt: any, email: string, profile: { __typename?: 'Profile', id: number, createdAt: any, firstName?: string | null, lastName?: string | null, userName?: string | null }, userBan?: { __typename?: 'UserBan', reason: string, createdAt: any } | null }>, pagination: { __typename?: 'PaginationModel', page: number, pageSize: number, pagesCount: number, totalCount: number } } };
+export type GetUsersQuery = { __typename?: 'Query', getUsers: { __typename?: 'UsersPaginationModel', users: Array<{ __typename?: 'User', id: number, userName: string, createdAt: any, email: string, profile: { __typename?: 'Profile', firstName?: string | null, lastName?: string | null, userName?: string | null }, userBan?: { __typename?: 'UserBan', reason: string, createdAt: any } | null }>, pagination: { __typename?: 'PaginationModel', totalCount: number } } };
 
 
 export const GetUsersDocument = gql`
-    query GetUsers($pageSize: Int = 10, $pageNumber: Int = 1, $sortBy: String = "createdAt", $sortDirection: SortDirection = desc, $searchTerm: String, $statusFilter: UserBlockStatus = ALL) {
+    query GetUsers($pageSize: Int, $pageNumber: Int, $sortBy: String = "createdAt", $sortDirection: SortDirection = desc, $searchTerm: String, $statusFilter: UserBlockStatus = ALL) {
   getUsers(
     pageSize: $pageSize
     pageNumber: $pageNumber
@@ -32,8 +32,6 @@ export const GetUsersDocument = gql`
       createdAt
       email
       profile {
-        id
-        createdAt
         firstName
         lastName
         userName
@@ -44,9 +42,6 @@ export const GetUsersDocument = gql`
       }
     }
     pagination {
-      page
-      pageSize
-      pagesCount
       totalCount
     }
   }

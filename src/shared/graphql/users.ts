@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const GET_USERS = gql(`
-  query GetUsers($pageSize: Int = 10
-  $pageNumber: Int = 1
+  query GetUsers($pageSize: Int 
+  $pageNumber: Int
   $sortBy: String = "createdAt"
   $sortDirection: SortDirection = desc
   $searchTerm: String
@@ -14,8 +14,6 @@ export const GET_USERS = gql(`
         createdAt
         email
         profile {
-          id
-          createdAt
           firstName
           lastName
           userName
@@ -26,9 +24,6 @@ export const GET_USERS = gql(`
         }
       }
       pagination {
-      page
-      pageSize
-      pagesCount
       totalCount
     }
     }
