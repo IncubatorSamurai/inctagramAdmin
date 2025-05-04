@@ -35,8 +35,8 @@ export const Pagination = ({
   ]
 
   const onChangeValue = (selectedId: string) => {
-    const selectedOption = options.find(option => option.id === selectedId)
-    changeItemsPerPage(Number(selectedOption?.label))
+    // const selectedOption = options.find(option => option.id === selectedId)
+    changeItemsPerPage(Number(selectedId))
   }
 
   const paginationRange = usePagination({ currentPage, pageSize, neighbours, totalCount })
@@ -95,9 +95,9 @@ export const Pagination = ({
         <ArrowIosForwardIcon />
       </button>
       <Typography className={s.selectWrapper}>Показать</Typography>
-      <SelectBox defaultValue={options[0].id} onValueChange={onChangeValue}>
+      <SelectBox value={String(pageSize)} onValueChange={onChangeValue}>
         {options.map(el => (
-          <SelectItem key={el.id} value={el.id} className={s.item}>
+          <SelectItem key={el.id} value={el.label} className={s.item}>
             {el.label}
           </SelectItem>
         ))}

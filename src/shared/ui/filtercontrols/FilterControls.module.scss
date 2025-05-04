@@ -1,0 +1,21 @@
+.arrow {
+  color: var(--color-dark-100);
+  width: 8px;
+  height: 6px;
+
+  &:hover {
+    color: var(--color-light-100);
+  }
+
+  &:focus {
+    color: var(--color-light-100);
+  }
+
+  &:active {
+    color: var(--color-light-100);
+  }
+}
+
+.filter_arrow_down {
+  transform: rotate(180deg);
+}

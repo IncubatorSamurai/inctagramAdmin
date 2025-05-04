@@ -26,7 +26,7 @@ export const Payments = () => {
   }
   return (
     <div className={s.payments}>
-      <PaymentsTable payments={paginatedData} /> {}
+      <PaymentsTable payments={paginatedData} />
       <Pagination
         currentPage={currentPage}
         pageSize={itemsPerPage}
