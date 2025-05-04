@@ -95,13 +95,6 @@ export const Pagination = ({
         <ArrowIosForwardIcon />
       </button>
       <Typography className={s.selectWrapper}>Показать</Typography>
-      {/*<SelectBox defaultValue={options[0].id} onValueChange={onChangeValue}>*/}
-      {/*  {options.map(el => (*/}
-      {/*    <SelectItem key={el.id} value={el.label} className={s.item}>*/}
-      {/*      {el.label}*/}
-      {/*    </SelectItem>*/}
-      {/*  ))}*/}
-      {/*</SelectBox>*/}
       <SelectBox value={String(pageSize)} onValueChange={onChangeValue}>
         {options.map(el => (
           <SelectItem key={el.id} value={el.label} className={s.item}>
