@@ -6,6 +6,7 @@ import { UserSelect } from '@/features/UsersList/UserSelect'
 import { Pagination } from '@/shared/ui/pagination'
 import { useEffect, useState } from 'react'
 import { UsersListTable } from '@/features/UsersList/UsersListTable/UsersListTable'
+import { useTranslations } from 'next-intl'
 
 export const UsersListData = () => {
   const [pageSize, setPageSize] = useState(10)
@@ -30,12 +31,12 @@ export const UsersListData = () => {
     }
   }, [searchUser])
 
-
+const t = useTranslations('search')
   return (
     <section className={s.usersList}>
       <div className={s.userList_header}>
         <div className={s.userList_header_search}>
-          <Input type="search" placeholder={'Search'} value={searchUser}
+          <Input type="search" placeholder={t('search')} value={searchUser}
             onChange={(e) => setSearchUser(e.target.value)}/>
         </div>
         <div className={s.userList_header_select}>

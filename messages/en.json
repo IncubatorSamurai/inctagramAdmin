@@ -68,6 +68,20 @@
       "Loading": "Loading..."
     }
   },
+  "pagination": {
+    "show": "Show",
+    "onPage": "on page"
+  },
+  "search": {
+    "search": "Search",
+    "notSelected": "Not selected",
+    "blocked": "Blocked",
+    "notBlocked": "Not Blocked",
+    "dateAdded": "Date added",
+    "profileLink": "Profile link",
+    "userName": "Username",
+    "userId": "User ID"
+  },
   "post": {
     "close": "Close",
     "discard": "Discard",

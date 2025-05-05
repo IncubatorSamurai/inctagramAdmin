@@ -13,6 +13,7 @@ import { BlockIcon } from '@/shared/assets/icons/BlockIcon'
 import { Typography } from '@/shared/ui/typography'
 import { FilterControls } from '@/shared/ui/filtercontrols/FilterControls'
 import { DropdownUsers } from '@/features/UsersList/DropdownUsers/DropdownUsers'
+import { useTranslations } from 'next-intl'
 
 
 export type Props = {
@@ -20,17 +21,18 @@ export type Props = {
 }
 
 export const UsersListTable = ({ users }: Props) => {
+  const t = useTranslations('search')
   return (
     <Root className={s.userTable} classNameContainer={s.containerUserTable}>
       <TableHead>
         <TableRow>
-          <TableHeadCell>User ID</TableHeadCell>
+          <TableHeadCell>{t('userId')}</TableHeadCell>
           <TableHeadCell className={s.filterCell}>
-            Username <FilterControls />
+          {t('userName')} <FilterControls />
           </TableHeadCell>
-          <TableHeadCell>Profile link</TableHeadCell>
+          <TableHeadCell>{t('profileLink')}</TableHeadCell>
           <TableHeadCell className={s.filterCell}>
-            Date added <FilterControls />
+           {t('dateAdded')} <FilterControls />
           </TableHeadCell>
           <TableHeadCell></TableHeadCell>
         </TableRow>
@@ -52,7 +54,6 @@ export const UsersListTable = ({ users }: Props) => {
               <Typography
                 variant={'small_text'}
               >{`${user.userName}`}</Typography>
-               {/* >{`${user.profile.firstName} ${user.profile.lastName} `}</Typography>  */}
             </TableCell>
             <TableCell>
               <Typography variant={'small_text'}>{user.userName}</Typography>
