@@ -4,24 +4,39 @@ import s from './UsersListData.module.scss'
 import { Input } from '@/shared/ui/input'
 import { UserSelect } from '@/features/UsersList/UserSelect'
 import { Pagination } from '@/shared/ui/pagination'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UsersListTable } from '@/features/UsersList/UsersListTable/UsersListTable'
 
 export const UsersListData = () => {
   const [pageSize, setPageSize] = useState(10)
   const [pageNumber, setPageNumber] = useState(1)
+  const [searchUser, setSearchUser] = useState('');
+  const [debouncedValue, setDebouncedValue] = useState(searchUser)
   const { data } = useGetUsersQuery({
-    variables: { pageSize, pageNumber },
+    variables: { pageSize, pageNumber, searchTerm:debouncedValue },
   })
+
 
   const pagination = data?.getUsers?.pagination
   const users = data?.getUsers?.users ?? []
+
+  useEffect(() => {
+    const handlerTimeOut = setTimeout(() => {
+      setDebouncedValue(searchUser)
+    }, 500)
+
+    return () => {
+      clearTimeout(handlerTimeOut)
+    }
+  }, [searchUser])
+
 
   return (
     <section className={s.usersList}>
       <div className={s.userList_header}>
         <div className={s.userList_header_search}>
-          <Input type="search" placeholder={'Search'} />
+          <Input type="search" placeholder={'Search'} value={searchUser}
+            onChange={(e) => setSearchUser(e.target.value)}/>
         </div>
         <div className={s.userList_header_select}>
           <UserSelect />

@@ -14,6 +14,7 @@ import { Typography } from '@/shared/ui/typography'
 import { FilterControls } from '@/shared/ui/filtercontrols/FilterControls'
 import { DropdownUsers } from '@/features/UsersList/DropdownUsers/DropdownUsers'
 
+
 export type Props = {
   users: User[]
 }
@@ -50,7 +51,8 @@ export const UsersListTable = ({ users }: Props) => {
             <TableCell>
               <Typography
                 variant={'small_text'}
-              >{`${user.profile.firstName} ${user.profile.lastName} `}</Typography>
+              >{`${user.userName}`}</Typography>
+               {/* >{`${user.profile.firstName} ${user.profile.lastName} `}</Typography>  */}
             </TableCell>
             <TableCell>
               <Typography variant={'small_text'}>{user.userName}</Typography>
