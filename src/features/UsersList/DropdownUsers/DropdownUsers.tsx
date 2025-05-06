@@ -1,15 +1,15 @@
-import React from 'react'
-import s from './DropdownUsers.module.scss'
-import { MoreHorizontalIcon } from '@/shared/assets/icons/MoreHorizontalIcon'
-import { Button } from '@/shared/ui/button'
-import { PersonRemoveIcon } from '@/shared/assets/icons/PersonRemoveIcon'
-import { Typography } from '@/shared/ui/typography'
-import { BlockIcon } from '@/shared/assets/icons/BlockIcon'
-import { Dropdown } from '@/shared/ui/dropdown'
-import { useRemoveUserMutation } from '@/shared/graphql/removeUser.generated'
-import { toast } from 'react-toastify'
 import { client } from '@/app/_providers/apollo-client'
 import { RemoveUserModal } from '@/features/UsersList/RemoveUserModal/RemoveUserModal'
+import { BlockIcon } from '@/shared/assets/icons/BlockIcon'
+import { MoreHorizontalIcon } from '@/shared/assets/icons/MoreHorizontalIcon'
+import { PersonRemoveIcon } from '@/shared/assets/icons/PersonRemoveIcon'
+import { PATH } from '@/shared/config/routes'
+import { useRemoveUserMutation } from '@/shared/graphql/removeUser.generated'
+import { Button } from '@/shared/ui/button'
+import { Dropdown } from '@/shared/ui/dropdown'
+import { Typography } from '@/shared/ui/typography'
+import { toast } from 'react-toastify'
+import s from './DropdownUsers.module.scss'
 
 type DropdownUsersProps = {
   id: number
@@ -53,7 +53,12 @@ export const DropdownUsers = ({ id, name }: DropdownUsersProps) => {
           </Button>
         </li>
         <li className={s.tableDropdownItem}>
-          <Button variant="icon">
+          <Button
+            variant="icon"
+            onClick={() => {
+              window.open(`${PATH.USERS_LIST}/${id}`, '_blank', 'noopener,noreferrer')
+            }}
+          >
             <MoreHorizontalIcon />
             <Typography variant="regular_text_14">More information</Typography>
           </Button>

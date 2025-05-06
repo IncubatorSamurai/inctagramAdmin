@@ -112,7 +112,7 @@ export const sidebarItems = {
   specialAdmin: [
     {
       id: uuidv4(),
-      name: 'User List',
+      name: 'Users List',
       icon: <PersonOutlineIcon />,
       href: PATH.USERS_LIST,
       disabled: false,

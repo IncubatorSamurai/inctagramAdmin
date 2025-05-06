@@ -105,5 +105,28 @@
     "errorUploadImages2": "Uploaded now:",
     "file": "File",
     "exceeds": "exceeds"
+  },
+  "userProfile": {
+    "errorGetUser": "Failed to load user information",
+    "backButtonText": "Back to Users List",
+    "noUploadedPhotos": "No uploaded photos",
+    "errorGetPostByUser": "Failed to load user photos",
+    "uploadedPhotos": "Uploaded photos",
+    "payments": "Payments",
+    "followers": "Followers",
+    "following": "Following",
+    "unknown": "Unknown",
+    "profileCreationDate": "Profile Creation Date",
+    "userID": "UserID",
+    "errorGetPaymentsByUser": "Failed to load payments information",
+    "dateOfPayment": "Date of Payment",
+    "endDateOfSubscription": "End date of subscription",
+    "amount": "Amount, $",
+    "subscriptionType": "Subscription Type",
+    "paymentType": "Payment Type",
+    "noPayments": "No payments",
+    "month": "month",
+    "1day": "1 day",
+    "7day": "7 day"
   }
 }

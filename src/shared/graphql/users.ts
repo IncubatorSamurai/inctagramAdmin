@@ -14,18 +14,43 @@ export const GET_USERS = gql(`
         createdAt
         email
         profile {
+          id
           firstName
           lastName
           userName
+          createdAt
         }
-         userBan {
+        userBan {
         reason
         createdAt
         }
       }
       pagination {
-      totalCount
+        pagesCount
+        page
+        pageSize
+        totalCount
     }
+    }
+  }
+`)
+
+export const GET_USER = gql(`
+  query GetUser($userId: Int!) {
+    getUser(userId: $userId) {
+      id
+      userName
+      email
+      createdAt
+      profile {
+        id
+        firstName
+        lastName
+        createdAt
+        avatars {
+          url
+        }
+      }
     }
   }
 `)
