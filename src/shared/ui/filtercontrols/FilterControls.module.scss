@@ -1,21 +1,30 @@
-.arrow {
-  color: var(--color-dark-100);
-  width: 8px;
-  height: 6px;
+.filter_arrow_down {
+  transform: rotate(180deg);
+}
 
-  &:hover {
-    color: var(--color-light-100);
-  }
+.filter_controls {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
 
-  &:focus {
-    color: var(--color-light-100);
-  }
-
-  &:active {
-    color: var(--color-light-100);
+  &.centered {
+    justify-content: center;
   }
 }
 
-.filter_arrow_down {
-  transform: rotate(180deg);
+.arrow {
+  width: 8px;
+  height: 6px;
+  color: var(--color-dark-100);
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: var(--color-light-100);
+  }
+
+  &.active {
+    color: var(--color-light-100);
+  }
 }

@@ -59,7 +59,6 @@ export const EditUserProfileForm = () => {
       reset(formData)
       setLocalDate(formData.birthDate)
     }
-
   }, [isSuccess, data, reset])
 
   const onSubmit = (form: EditProfileForm) => {
@@ -118,7 +117,7 @@ export const EditUserProfileForm = () => {
         {errors.birthDate?.message && (
           <Typography variant="error">
             {t('dateError')}
-            <Link className={s.link} href={PATH.PRIVACY_POLICY} onClick={onLink} >
+            <Link className={s.link} href={PATH.PRIVACY_POLICY} onClick={onLink}>
               Privacy Policy
             </Link>
           </Typography>

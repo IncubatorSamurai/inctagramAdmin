@@ -1,3 +1,4 @@
+'use client'
 import { User } from '@/shared/graphql/types'
 import {
   Root,
@@ -15,12 +16,16 @@ import { FilterControls } from '@/shared/ui/filtercontrols/FilterControls'
 import { DropdownUsers } from '@/features/UsersList/DropdownUsers/DropdownUsers'
 import { useTranslations } from 'next-intl'
 
+import { SortOrder } from '../UsersListData'
 
 export type Props = {
   users: User[]
+  sortBy: 'createdAt' | 'userName'
+  sortOrder: SortOrder
+  onFilterChange: (field: 'createdAt' | 'userName') => void
 }
 
-export const UsersListTable = ({ users }: Props) => {
+export const UsersListTable = ({ users, onFilterChange, sortBy, sortOrder }: Props) => {
   const t = useTranslations('search')
   return (
     <Root className={s.userTable} classNameContainer={s.containerUserTable}>
@@ -28,11 +33,23 @@ export const UsersListTable = ({ users }: Props) => {
         <TableRow>
           <TableHeadCell>{t('userId')}</TableHeadCell>
           <TableHeadCell className={s.filterCell}>
-          {t('userName')} <FilterControls />
+            {t('userName')}
+            <FilterControls
+              filterSort="userName"
+              activeSort={sortBy}
+              activeDirection={sortOrder === 'asc' ? 'up' : 'down'}
+              onChange={onFilterChange}
+            />
           </TableHeadCell>
           <TableHeadCell>{t('profileLink')}</TableHeadCell>
           <TableHeadCell className={s.filterCell}>
-           {t('dateAdded')} <FilterControls />
+            {t('dateAdded')}{' '}
+            <FilterControls
+              filterSort="createdAt"
+              activeSort={sortBy}
+              activeDirection={sortOrder === 'asc' ? 'up' : 'down'}
+              onChange={onFilterChange}
+            />
           </TableHeadCell>
           <TableHeadCell></TableHeadCell>
         </TableRow>
@@ -51,9 +68,7 @@ export const UsersListTable = ({ users }: Props) => {
               </span>
             </TableCell>
             <TableCell>
-              <Typography
-                variant={'small_text'}
-              >{`${user.userName}`}</Typography>
+              <Typography variant={'small_text'}>{`${user.userName}`}</Typography>
             </TableCell>
             <TableCell>
               <Typography variant={'small_text'}>{user.userName}</Typography>
