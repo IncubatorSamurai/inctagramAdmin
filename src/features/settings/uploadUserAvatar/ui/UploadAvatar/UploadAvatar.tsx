@@ -20,8 +20,6 @@ type UpdateAvatarProps = {
 const MAX_FILE_SIZE_MB = 10
 const MAX_FILE_SIZE = convertToBytes(MAX_FILE_SIZE_MB)
 
-
-
 export const UploadAvatar = ({ onOpenChange }: UpdateAvatarProps) => {
   const t = useTranslations('post')
   const dispatch = useAppDispatch()
@@ -39,7 +37,6 @@ export const UploadAvatar = ({ onOpenChange }: UpdateAvatarProps) => {
     }
   }
 
-
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -47,7 +44,7 @@ export const UploadAvatar = ({ onOpenChange }: UpdateAvatarProps) => {
     if (file.size > MAX_FILE_SIZE) {
       toast.error(`Error! Photo size must be less than 10 MB!`)
       setError(`Error! Photo size must be less than 10 MB!`)
-resetFileInput()
+      resetFileInput()
     } else {
       setError('')
     }

@@ -35,7 +35,10 @@ export default async function LocaleLayout({
       <AuthProvider>
         <Header headerTitle={'Inctagram'} isAdmin={true} />
         <div className={s.container}>
-          <LayoutLoggedIn>{children}<ToastContainer/></LayoutLoggedIn>
+          <LayoutLoggedIn>
+            {children}
+            <ToastContainer />
+          </LayoutLoggedIn>
         </div>
         {modal}
       </AuthProvider>
