@@ -35,7 +35,7 @@ export const Pagination = ({
     { id: '4', label: '50' },
     { id: '5', label: '100' },
   ]
-
+  const t = useTranslations('pagination')
   const onChangeValue = (selectedId: string) => {
     // const selectedOption = options.find(option => option.id === selectedId)
     changeItemsPerPage(Number(selectedId))
@@ -66,7 +66,7 @@ export const Pagination = ({
     arrowForward: clsx(s.arrow, s.rotateArrow, currentPage === lastPage && s.disabled),
     paginationContainer: clsx(s.pagination_container),
   }
-
+  
   return (
     <div className={classNames.paginationContainer}>
       <button onClick={onPrevious} disabled={currentPage === firstPage} className={s.arrow}>
