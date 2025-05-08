@@ -9,9 +9,6 @@ import { Button } from '@/shared/ui/button'
 import { Typography } from '@/shared/ui/typography'
 import { useTranslations } from 'next-intl'
 import s from './UserProfile.module.scss'
-import { useAppDispatch } from '@/shared/hooks'
-import { setIsUserProfile } from '@/shared/store'
-import { useEffect } from 'react'
 
 type Props = {
   userId: string
@@ -19,18 +16,9 @@ type Props = {
 
 export const UserProfile = ({ userId }: Props) => {
   const t = useTranslations('userProfile')
-  const dispatch = useAppDispatch()
   const { data, loading, error } = useGetUserQuery({
     variables: { userId: +userId },
   })
-
-  useEffect(() => {
-    dispatch(setIsUserProfile({ isUserProfile: true }))
-
-    return () => {
-      dispatch(setIsUserProfile({ isUserProfile: false }))
-    }
-  }, [dispatch])
 
   if (loading) {
     return <GlobalLoader />
