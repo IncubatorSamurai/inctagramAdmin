@@ -27,7 +27,6 @@ export const Pagination = ({
   neighbours,
   totalCount,
 }: Props) => {
-  const t = useTranslations('pagination')
   const options = [
     { id: '1', label: '10' },
     { id: '2', label: '20' },
@@ -37,7 +36,6 @@ export const Pagination = ({
   ]
   const t = useTranslations('pagination')
   const onChangeValue = (selectedId: string) => {
-    // const selectedOption = options.find(option => option.id === selectedId)
     changeItemsPerPage(Number(selectedId))
   }
 
