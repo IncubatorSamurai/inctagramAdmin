@@ -12,20 +12,16 @@ import {
 import s from './UsersListTable.module.scss'
 import { BlockIcon } from '@/shared/assets/icons/BlockIcon'
 import { Typography } from '@/shared/ui/typography'
-import { FilterControls } from '@/shared/ui/filtercontrols/FilterControls'
 import { DropdownUsers } from '@/features/UsersList/DropdownUsers/DropdownUsers'
 import { useTranslations } from 'next-intl'
-
-import { SortOrder } from '../UsersListData'
+import { SortableField, SortProps } from '@/shared/types'
+import { SortControl } from '@/shared/ui/sort-control'
 
 export type Props = {
   users: User[]
-  sortBy: 'createdAt' | 'userName'
-  sortOrder: SortOrder
-  onFilterChange: (field: 'createdAt' | 'userName') => void
-}
+} & SortProps
 
-export const UsersListTable = ({ users, onFilterChange, sortBy, sortOrder }: Props) => {
+export const UsersListTable = ({ users, onSortChange, sortField, sortDirection }: Props) => {
   const t = useTranslations('search')
   return (
     <Root className={s.userTable} classNameContainer={s.containerUserTable}>
@@ -33,23 +29,21 @@ export const UsersListTable = ({ users, onFilterChange, sortBy, sortOrder }: Pro
         <TableRow>
           <TableHeadCell>{t('userId')}</TableHeadCell>
           <TableHeadCell className={s.filterCell}>
-            {t('userName')}
-            <FilterControls
-              filterSort="userName"
-              activeSort={sortBy}
-              activeDirection={sortOrder === 'asc' ? 'up' : 'down'}
-              onChange={onFilterChange}
-            />
+            <SortControl
+              direction={sortField === SortableField.USERNAME ? sortDirection : null}
+              onClick={() => onSortChange(SortableField.USERNAME)}
+            >
+              {t('userName')}
+            </SortControl>
           </TableHeadCell>
           <TableHeadCell>{t('profileLink')}</TableHeadCell>
           <TableHeadCell className={s.filterCell}>
-            {t('dateAdded')}{' '}
-            <FilterControls
-              filterSort="createdAt"
-              activeSort={sortBy}
-              activeDirection={sortOrder === 'asc' ? 'up' : 'down'}
-              onChange={onFilterChange}
-            />
+            <SortControl
+              direction={sortField === SortableField.CREATED_AT ? sortDirection : null}
+              onClick={() => onSortChange(SortableField.CREATED_AT)}
+            >
+              {t('dateAdded')}
+            </SortControl>
           </TableHeadCell>
           <TableHeadCell></TableHeadCell>
         </TableRow>
