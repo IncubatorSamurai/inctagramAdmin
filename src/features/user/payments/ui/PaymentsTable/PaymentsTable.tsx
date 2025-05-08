@@ -1,4 +1,4 @@
-import { SubscriptionByPaymentModel } from '@/shared/graphql/types'
+import { SubscriptionByPaymentModel } from '@/shared/graphql'
 import { Root, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from '@/shared/ui/table'
 import { parseIsoDate } from '@/shared/utils'
 import { useTranslations } from 'next-intl'

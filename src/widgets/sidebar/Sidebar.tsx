@@ -31,6 +31,8 @@ import { useMeQuery } from '@/shared/api/auth/authApi'
 import { useState } from 'react'
 import { Button } from '@/shared/ui/button/Button'
 import { AddPostModal } from '../post'
+import { useAppSelector } from '@/shared/hooks'
+import { selectIsUserProfile } from '@/shared/store'
 
 export const sidebarItems = {
   primary: [
@@ -156,6 +158,10 @@ type Sidebar = {
 export const Sidebar = ({ isAdmin }: Sidebar) => {
   const { data: meInfo } = useMeQuery()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const isUserProfile = useAppSelector(selectIsUserProfile)
+
+  if (isUserProfile) return
+
   return (
     <nav className={s.sidebar}>
       {isAdmin ? (

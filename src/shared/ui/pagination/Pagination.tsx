@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import { clsx } from 'clsx'
 import { DOTS, usePagination } from './hook/usePagination'
 import { SelectItem } from '../select/selectItem'
+import { useTranslations } from 'next-intl'
 
 type Props = {
   changeCurrentPage: (value: number) => void
@@ -26,6 +27,7 @@ export const Pagination = ({
   neighbours,
   totalCount,
 }: Props) => {
+  const t = useTranslations('pagination')
   const options = [
     { id: '1', label: '10' },
     { id: '2', label: '20' },
@@ -94,7 +96,7 @@ export const Pagination = ({
       <button onClick={onNext} disabled={currentPage === lastPage} className={s.arrow}>
         <ArrowIosForwardIcon />
       </button>
-      <Typography className={s.selectWrapper}>Показать</Typography>
+      <Typography className={s.selectWrapper}>{t('show')}</Typography>
       <SelectBox value={String(pageSize)} onValueChange={onChangeValue}>
         {options.map(el => (
           <SelectItem key={el.id} value={el.label} className={s.item}>
@@ -102,7 +104,7 @@ export const Pagination = ({
           </SelectItem>
         ))}
       </SelectBox>
-      <Typography className={s.selectWrapper}>на странице</Typography>
+      <Typography className={s.selectWrapper}>{t('onPage')}</Typography>
     </div>
   )
 }

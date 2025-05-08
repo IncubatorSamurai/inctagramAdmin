@@ -1,6 +1,6 @@
 'use client'
 import GlobalLoader from '@/entities/loading/loading'
-import { useGetPostsByUserQuery } from '@/shared/graphql/posts.generated'
+import { useGetPostsByUserQuery } from '@/shared/graphql'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { toast } from 'react-toastify'

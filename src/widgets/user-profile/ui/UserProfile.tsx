@@ -4,11 +4,14 @@ import { ProfileHeader, ProfileTabs } from '@/features/user'
 import { Link } from '@/i18n/routing'
 import { ArrowBackOutlineIcon } from '@/shared/assets/icons/ArrowBackOutlineIcon'
 import { PATH } from '@/shared/config/routes'
-import { useGetUserQuery } from '@/shared/graphql/users.generated'
+import { useGetUserQuery } from '@/shared/graphql'
 import { Button } from '@/shared/ui/button'
 import { Typography } from '@/shared/ui/typography'
 import { useTranslations } from 'next-intl'
 import s from './UserProfile.module.scss'
+import { useAppDispatch } from '@/shared/hooks'
+import { setIsUserProfile } from '@/shared/store'
+import { useEffect } from 'react'
 
 type Props = {
   userId: string
@@ -16,9 +19,18 @@ type Props = {
 
 export const UserProfile = ({ userId }: Props) => {
   const t = useTranslations('userProfile')
+  const dispatch = useAppDispatch()
   const { data, loading, error } = useGetUserQuery({
     variables: { userId: +userId },
   })
+
+  useEffect(() => {
+    dispatch(setIsUserProfile({ isUserProfile: true }))
+
+    return () => {
+      dispatch(setIsUserProfile({ isUserProfile: false }))
+    }
+  }, [dispatch])
 
   if (loading) {
     return <GlobalLoader />
@@ -28,7 +40,7 @@ export const UserProfile = ({ userId }: Props) => {
     return <div className={s.errorDisplay}>{t('errorGetUser')}</div>
   }
 
-  const user = data?.getUser
+  const user = data.getUser
 
   return (
     <div className={s.container}>
