@@ -30,8 +30,8 @@ export const PaymentsTable = ({ payments }: Props) => {
       <TableBody>
         {payments.map(payment => (
           <TableRow key={payment.id}>
-            <TableCell>{parseIsoDate(payment.dateOfPayment)}</TableCell>
-            <TableCell>{parseIsoDate(payment.endDate)}</TableCell>
+            <TableCell>{parseIsoDate(payment.dateOfPayment!)}</TableCell>
+            <TableCell>{parseIsoDate(payment.endDate!)}</TableCell>
             <TableCell>{`$${payment.price}`}</TableCell>
             <TableCell>{SubscriptionType[payment.type]}</TableCell>
             <TableCell>{payment.paymentType}</TableCell>
@@ -41,3 +41,5 @@ export const PaymentsTable = ({ payments }: Props) => {
     </Root>
   )
 }
+
+// add ! in parseIsoDate, because date now is string or null
