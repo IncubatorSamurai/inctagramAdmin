@@ -1,0 +1,18 @@
+.arrowIcon {
+  width: 0.5rem;
+  height: 0.375rem;
+  color: var(--color-dark-100);
+}
+
+.arrowDown {
+  transform: rotate(180deg);
+}
+
+.active {
+  color: var(--color-light-100);
+}
+
+.arrowIconsWrapper {
+  display: flex;
+  flex-direction: column;
+}

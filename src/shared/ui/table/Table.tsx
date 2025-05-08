@@ -2,9 +2,11 @@ import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react'
 import s from './Table.module.scss'
 import clsx from 'clsx'
 import { Typography } from '../typography'
+
 type TableProps = {
   classNameContainer?: string
 } & ComponentPropsWithoutRef<'table'>
+
 export const Root = forwardRef<ComponentRef<'table'>, TableProps>(
   ({ className, classNameContainer, ...props }, ref) => {
     const classNames = {
@@ -56,7 +58,7 @@ export const TableHeadCell = forwardRef<ComponentRef<'th'>, ComponentPropsWithou
 
     return (
       <th className={classNames.headCell} ref={ref} {...props}>
-        <span>{children}</span>
+        {typeof children === 'string' ? <span>{children}</span> : children}
       </th>
     )
   }
