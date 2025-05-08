@@ -119,5 +119,37 @@
     "errorUploadImages2": "Сейчас загружено:",
     "file": "Файл",
     "exceeds": "превышает"
+  },
+  "userProfile": {
+    "errorGetUser": "Не удалось загрузить информацию о пользователе",
+    "backButtonText": "Назад к списку пользователей",
+    "noUploadedPhotos": "Нет загруженных фотографий",
+    "errorGetPostByUser": "Не удалось загрузить фотографии пользователя",
+    "uploadedPhotos": "Загруженные фотографии",
+    "payments": "Платежи",
+    "followers": "Подписчики",
+    "following": "Подписки",
+    "unknown": "Неизвестный",
+    "profileCreationDate": "Дата создания профиля",
+    "userID": "Идентификатор пользователя",
+    "errorGetPaymentsByUser": "Не удалось загрузить информацию о платежах",
+    "dateOfPayment": "Дата платежа",
+    "endDateOfSubscription": "Дата окончания подписки",
+    "amount": "Сумма, $",
+    "subscriptionType": "Тип подписки",
+    "paymentType": "Тип платежа",
+    "noPayments": "Нет платежей",
+    "month": "месяц",
+    "1day": "1 день",
+    "7day": "7 дней",
+    "errorGetFollow": "Не удалось загрузить данные",
+    "noData": "Нет данных",
+    "userName": "Имя пользователя",
+    "profileLink": "Ссылка на профиль",
+    "subscriptionDate": "Дата подписки"
+  },
+  "pagination": {
+    "show": "Показать",
+    "onPage": "на странице"
   }
 }

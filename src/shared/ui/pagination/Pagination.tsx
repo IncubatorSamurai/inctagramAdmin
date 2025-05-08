@@ -36,7 +36,6 @@ export const Pagination = ({
   ]
   const t = useTranslations('pagination')
   const onChangeValue = (selectedId: string) => {
-    // const selectedOption = options.find(option => option.id === selectedId)
     changeItemsPerPage(Number(selectedId))
   }
 

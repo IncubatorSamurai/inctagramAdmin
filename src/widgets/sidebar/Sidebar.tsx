@@ -3,33 +3,33 @@ import { v4 as uuidv4 } from 'uuid'
 
 import s from './Sidebar.module.scss'
 
-import clsx from 'clsx'
-import { SettingsIcon } from '@/shared/assets/icons/SettingsIcon'
-import { HomeIcon } from '@/shared/assets/icons/HomeIcon'
-import { PlusSquareOutlineIcon } from '@/shared/assets/icons/PlusSquareOutlineIcon'
-import { PersonOutlineIcon } from '@/shared/assets/icons/PersonOutlineIcon'
-import { MessageCircleOutlineIcon } from '@/shared/assets/icons/MessageCircleOutlineIcon'
-import { SearchOutlineIcon } from '@/shared/assets/icons/SearchOutlineIcon'
-import { TrendingUpOutlineIcon } from '@/shared/assets/icons/TrendingUpOutlineIcon'
-import { BookMarkOutlineIcon } from '@/shared/assets/icons/BookMarkOutlineIcon'
-import { PersonIcon } from '@/shared/assets/icons/PersonIcon'
-import { CreditCardOutlineIcon } from '@/shared/assets/icons/CreditCardOutlineIcon'
-import { ImageOutlineIcon } from '@/shared/assets/icons/ImageOutlineIcon'
-import { HomeOutlineIcon } from '@/shared/assets/icons/HomeOutlineIcon'
-import { PlusSquareIcon } from '@/shared/assets/icons/PlusSquareIcon'
-import { MessageCircleIcon } from '@/shared/assets/icons/MessageCircleIcon'
-import { SearchIcon } from '@/shared/assets/icons/SearchIcon'
-import { SettingsOutlineIcon } from '@/shared/assets/icons/SettingsOutlineIcon'
-import { TrendingUpIcon } from '@/shared/assets/icons/TrendingUpIcon'
-import { CreditCartIcon } from '@/shared/assets/icons/CreditCardIcon'
-import { ImageIcon } from '@/shared/assets/icons/ImageIcon'
-import { BookMarkIcon } from '@/shared/assets/icons/BookMarkIcon'
-import { NavItem } from '@/shared/ui/nav-item'
-import { PATH } from '@/shared/config/routes'
 import { LogOut } from '@/features/auth/logout/ui/LogOut'
 import { useMeQuery } from '@/shared/api/auth/authApi'
-import { useState } from 'react'
+import { BookMarkIcon } from '@/shared/assets/icons/BookMarkIcon'
+import { BookMarkOutlineIcon } from '@/shared/assets/icons/BookMarkOutlineIcon'
+import { CreditCartIcon } from '@/shared/assets/icons/CreditCardIcon'
+import { CreditCardOutlineIcon } from '@/shared/assets/icons/CreditCardOutlineIcon'
+import { HomeIcon } from '@/shared/assets/icons/HomeIcon'
+import { HomeOutlineIcon } from '@/shared/assets/icons/HomeOutlineIcon'
+import { ImageIcon } from '@/shared/assets/icons/ImageIcon'
+import { ImageOutlineIcon } from '@/shared/assets/icons/ImageOutlineIcon'
+import { MessageCircleIcon } from '@/shared/assets/icons/MessageCircleIcon'
+import { MessageCircleOutlineIcon } from '@/shared/assets/icons/MessageCircleOutlineIcon'
+import { PersonIcon } from '@/shared/assets/icons/PersonIcon'
+import { PersonOutlineIcon } from '@/shared/assets/icons/PersonOutlineIcon'
+import { PlusSquareIcon } from '@/shared/assets/icons/PlusSquareIcon'
+import { PlusSquareOutlineIcon } from '@/shared/assets/icons/PlusSquareOutlineIcon'
+import { SearchIcon } from '@/shared/assets/icons/SearchIcon'
+import { SearchOutlineIcon } from '@/shared/assets/icons/SearchOutlineIcon'
+import { SettingsIcon } from '@/shared/assets/icons/SettingsIcon'
+import { SettingsOutlineIcon } from '@/shared/assets/icons/SettingsOutlineIcon'
+import { TrendingUpIcon } from '@/shared/assets/icons/TrendingUpIcon'
+import { TrendingUpOutlineIcon } from '@/shared/assets/icons/TrendingUpOutlineIcon'
+import { PATH } from '@/shared/config/routes'
 import { Button } from '@/shared/ui/button/Button'
+import { NavItem } from '@/shared/ui/nav-item'
+import clsx from 'clsx'
+import { useState } from 'react'
 import { AddPostModal } from '../post'
 
 export const sidebarItems = {
@@ -112,7 +112,7 @@ export const sidebarItems = {
   specialAdmin: [
     {
       id: uuidv4(),
-      name: 'User List',
+      name: 'Users List',
       icon: <PersonOutlineIcon />,
       href: PATH.USERS_LIST,
       disabled: false,
@@ -156,6 +156,7 @@ type Sidebar = {
 export const Sidebar = ({ isAdmin }: Sidebar) => {
   const { data: meInfo } = useMeQuery()
   const [isModalOpen, setIsModalOpen] = useState(false)
+
   return (
     <nav className={s.sidebar}>
       {isAdmin ? (

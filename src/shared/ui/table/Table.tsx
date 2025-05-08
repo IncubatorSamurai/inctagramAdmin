@@ -2,13 +2,15 @@ import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react'
 import s from './Table.module.scss'
 import clsx from 'clsx'
 import { Typography } from '../typography'
-type TableProps =  {
+
+type TableProps = {
   classNameContainer?: string
-}& ComponentPropsWithoutRef<'table'>
-export const Root = forwardRef<ComponentRef<'table'>,TableProps>(
-  ({ className,classNameContainer, ...props }, ref) => {
+} & ComponentPropsWithoutRef<'table'>
+
+export const Root = forwardRef<ComponentRef<'table'>, TableProps>(
+  ({ className, classNameContainer, ...props }, ref) => {
     const classNames = {
-      container:clsx(s.container,classNameContainer) ,
+      container: clsx(s.container, classNameContainer),
       table: clsx(s.table, className),
     }
 
@@ -41,7 +43,7 @@ export const TableBody = forwardRef<ComponentRef<'tbody'>, ComponentPropsWithout
 TableBody.displayName = 'TableBody'
 
 export const TableRow = forwardRef<ComponentRef<'tr'>, ComponentPropsWithoutRef<'tr'>>(
-  ({className, ...props }, ref) => {
+  ({ className, ...props }, ref) => {
     return <tr ref={ref} {...props} className={clsx(s.row, className)} />
   }
 )
@@ -56,7 +58,7 @@ export const TableHeadCell = forwardRef<ComponentRef<'th'>, ComponentPropsWithou
 
     return (
       <th className={classNames.headCell} ref={ref} {...props}>
-        <span>{children}</span>
+        {typeof children === 'string' ? <span>{children}</span> : children}
       </th>
     )
   }
