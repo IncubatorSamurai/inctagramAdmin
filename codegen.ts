@@ -5,7 +5,14 @@ const config: CodegenConfig = {
   documents: ['./src/shared/graphql/**/*.ts'],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
-    'src/shared/graphql/types.ts': { plugins: ['typescript'] },
+    'src/shared/graphql/types.ts': {
+      plugins: ['typescript'],
+      config: {
+        scalars: {
+          DateTime: 'string',
+        },
+      },
+    },
     'src/': {
       preset: 'near-operation-file',
       presetConfig: {
@@ -15,6 +22,9 @@ const config: CodegenConfig = {
       plugins: ['typescript-operations', 'typescript-react-apollo'],
       config: {
         withHooks: true,
+        scalars: {
+          DateTime: 'string',
+        },
       },
     },
   },
