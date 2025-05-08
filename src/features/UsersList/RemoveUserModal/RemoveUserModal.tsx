@@ -14,7 +14,11 @@ export const RemoveUserModal = ({ name, trigger, deleteUser }: DeleteUser) => {
       <div className={s.deleteUserContainer}>
         <Typography variant="regular_text_16"> {`Are you sure to delete user ${name}?`}</Typography>
         <div className={s.deleteUserBtn}>
-          <DialogClose asChild><Button variant="primary" fullWidth >No</Button></DialogClose>
+          <DialogClose asChild>
+            <Button variant="primary" fullWidth>
+              No
+            </Button>
+          </DialogClose>
           <Button variant="outline" fullWidth onClick={deleteUser}>
             Yes
           </Button>

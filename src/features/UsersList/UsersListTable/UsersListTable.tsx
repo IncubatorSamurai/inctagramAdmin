@@ -1,3 +1,4 @@
+'use client'
 import { User } from '@/shared/graphql/types'
 import {
   Root,
@@ -11,16 +12,16 @@ import {
 import s from './UsersListTable.module.scss'
 import { BlockIcon } from '@/shared/assets/icons/BlockIcon'
 import { Typography } from '@/shared/ui/typography'
-import { FilterControls } from '@/shared/ui/filtercontrols/FilterControls'
 import { DropdownUsers } from '@/features/UsersList/DropdownUsers/DropdownUsers'
 import { useTranslations } from 'next-intl'
-
+import { SortableField, SortProps } from '@/shared/types'
+import { SortControl } from '@/shared/ui/sort-control'
 
 export type Props = {
   users: User[]
-}
+} & SortProps
 
-export const UsersListTable = ({ users }: Props) => {
+export const UsersListTable = ({ users, onSortChange, sortField, sortDirection }: Props) => {
   const t = useTranslations('search')
   return (
     <Root className={s.userTable} classNameContainer={s.containerUserTable}>
@@ -28,11 +29,21 @@ export const UsersListTable = ({ users }: Props) => {
         <TableRow>
           <TableHeadCell>{t('userId')}</TableHeadCell>
           <TableHeadCell className={s.filterCell}>
-          {t('userName')} <FilterControls />
+            <SortControl
+              direction={sortField === SortableField.USERNAME ? sortDirection : null}
+              onClick={() => onSortChange(SortableField.USERNAME)}
+            >
+              {t('userName')}
+            </SortControl>
           </TableHeadCell>
           <TableHeadCell>{t('profileLink')}</TableHeadCell>
           <TableHeadCell className={s.filterCell}>
-           {t('dateAdded')} <FilterControls />
+            <SortControl
+              direction={sortField === SortableField.CREATED_AT ? sortDirection : null}
+              onClick={() => onSortChange(SortableField.CREATED_AT)}
+            >
+              {t('dateAdded')}
+            </SortControl>
           </TableHeadCell>
           <TableHeadCell></TableHeadCell>
         </TableRow>
@@ -51,9 +62,7 @@ export const UsersListTable = ({ users }: Props) => {
               </span>
             </TableCell>
             <TableCell>
-              <Typography
-                variant={'small_text'}
-              >{`${user.userName}`}</Typography>
+              <Typography variant={'small_text'}>{`${user.userName}`}</Typography>
             </TableCell>
             <TableCell>
               <Typography variant={'small_text'}>{user.userName}</Typography>

@@ -64,7 +64,7 @@ export const Pagination = ({
     arrowForward: clsx(s.arrow, s.rotateArrow, currentPage === lastPage && s.disabled),
     paginationContainer: clsx(s.pagination_container),
   }
-  
+
   return (
     <div className={classNames.paginationContainer}>
       <button onClick={onPrevious} disabled={currentPage === firstPage} className={s.arrow}>

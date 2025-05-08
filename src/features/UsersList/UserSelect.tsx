@@ -4,9 +4,9 @@ import { useTranslations } from 'next-intl'
 import React from 'react'
 
 export const UserSelect = () => {
-const t = useTranslations('search')
+  const t = useTranslations('search')
   const optionSelectUser = [
-    { id: 'block', label: t('blocked')},
+    { id: 'block', label: t('blocked') },
     { id: 'non_block', label: t('notBlocked') },
   ]
 
