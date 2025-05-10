@@ -80,4 +80,8 @@
   &:active {
     color: var(--color-accent-500);
   }
+
+  &[aria-expanded='true'] {
+    color: var(--color-accent-500);
+  }
 }

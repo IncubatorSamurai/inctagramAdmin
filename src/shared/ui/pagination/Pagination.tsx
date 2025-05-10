@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import { clsx } from 'clsx'
 import { DOTS, usePagination } from './hook/usePagination'
 import { SelectItem } from '../select/selectItem'
+import { useTranslations } from 'next-intl'
 
 type Props = {
   changeCurrentPage: (value: number) => void
@@ -33,10 +34,9 @@ export const Pagination = ({
     { id: '4', label: '50' },
     { id: '5', label: '100' },
   ]
-
+  const t = useTranslations('pagination')
   const onChangeValue = (selectedId: string) => {
-    const selectedOption = options.find(option => option.id === selectedId)
-    changeItemsPerPage(Number(selectedOption?.label))
+    changeItemsPerPage(Number(selectedId))
   }
 
   const paginationRange = usePagination({ currentPage, pageSize, neighbours, totalCount })
@@ -94,15 +94,15 @@ export const Pagination = ({
       <button onClick={onNext} disabled={currentPage === lastPage} className={s.arrow}>
         <ArrowIosForwardIcon />
       </button>
-      <Typography className={s.selectWrapper}>Показать</Typography>
-      <SelectBox defaultValue={options[0].id} onValueChange={onChangeValue}>
+      <Typography className={s.selectWrapper}>{t('show')}</Typography>
+      <SelectBox value={String(pageSize)} onValueChange={onChangeValue}>
         {options.map(el => (
-          <SelectItem key={el.id} value={el.id} className={s.item}>
+          <SelectItem key={el.id} value={el.label} className={s.item}>
             {el.label}
           </SelectItem>
         ))}
       </SelectBox>
-      <Typography className={s.selectWrapper}>на странице</Typography>
+      <Typography className={s.selectWrapper}>{t('onPage')}</Typography>
     </div>
   )
 }

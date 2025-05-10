@@ -82,20 +82,20 @@ export const PostsModal = ({ post, commentsData, postId, ...props }: PublicModal
           <NonAuthorizedContent post={post} commentsData={commentsData} />
         )}
       </div>
-            <ModalCloseOrDeletePost
-              postId={postId}
-              title="Close"
-              open={openModal}
-              onOpenChange={changeOpen}
-              changeEdit={changeEdit}
-            />
+      <ModalCloseOrDeletePost
+        postId={postId}
+        title="Close"
+        open={openModal}
+        onOpenChange={changeOpen}
+        changeEdit={changeEdit}
+      />
 
-            <ModalCloseOrDeletePost
-              postId={postId}
-              title="Delete"
-              open={showDeleteModal}
-              onOpenChange={setShowDeleteModal}
-            />
+      <ModalCloseOrDeletePost
+        postId={postId}
+        title="Delete"
+        open={showDeleteModal}
+        onOpenChange={setShowDeleteModal}
+      />
     </Modal>
   )
 }
