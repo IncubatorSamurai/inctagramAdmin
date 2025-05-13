@@ -68,10 +68,6 @@
       "Loading": "Загрузка..."
     }
   },
-  "pagination": {
-    "show": "Показать",
-    "onPage": "на странице"
-  },
   "search": {
     "search": "Поиск",
     "notSelected": "Не выбрано",
@@ -151,5 +147,12 @@
   "pagination": {
     "show": "Показать",
     "onPage": "на странице"
+  },
+  "payments": {
+    "userName": "Имя пользователя",
+    "date": "Дата добавления",
+    "amount": "Сумма",
+    "subscription": "Подписка",
+    "paymentMethod": "Способ оплаты"
   }
 }
