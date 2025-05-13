@@ -1,3 +1,5 @@
+import {PaymentsData} from '@/features/paymentsList/PaymentsData'
+
 export default function PaymentsList() {
-  return <div>PaymentsList</div>
+  return <div><PaymentsData/></div>
 }

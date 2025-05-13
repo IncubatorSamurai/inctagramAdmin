@@ -68,10 +68,6 @@
       "Loading": "Loading..."
     }
   },
-  "pagination": {
-    "show": "Show",
-    "onPage": "on page"
-  },
   "search": {
     "search": "Search",
     "notSelected": "Not selected",
@@ -151,5 +147,13 @@
   "pagination": {
     "show": "Show",
     "onPage": "on page"
+  },
+  "payments": {
+    "userName": "Username",
+    "date": "Date added",
+    "amount": "Amount",
+    "subscription": "Subscription",
+    "paymentMethod": "Payment Method"
+
   }
 }
