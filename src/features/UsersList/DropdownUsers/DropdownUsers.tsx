@@ -10,6 +10,7 @@ import { Dropdown } from '@/shared/ui/dropdown'
 import { Typography } from '@/shared/ui/typography'
 import { toast } from 'react-toastify'
 import s from './DropdownUsers.module.scss'
+import { BanUser } from '../BanUser/BanUser'
 
 type DropdownUsersProps = {
   id: number
@@ -47,10 +48,7 @@ export const DropdownUsers = ({ id, name }: DropdownUsersProps) => {
           />
         </li>
         <li className={s.tableDropdownItem}>
-          <Button variant="icon">
-            <BlockIcon />
-            <Typography variant="regular_text_14">Ban in the System</Typography>
-          </Button>
+          <BanUser />
         </li>
         <li className={s.tableDropdownItem}>
           <Button
