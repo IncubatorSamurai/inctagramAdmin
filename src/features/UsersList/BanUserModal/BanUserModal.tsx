@@ -14,7 +14,7 @@ import { useBanUserMutation } from '@/shared/graphql/banUser.generated'
 import { client } from '@/app/_providers/apollo-client'
 import { toast } from 'react-toastify'
 import { DropdownUsersProps } from '../DropdownUsers/DropdownUsers'
-import { optionSelectLanguage } from './consts'
+import { optionsBanUser } from './consts'
 
 export const BanUserModal = ({ name, id }: DropdownUsersProps) => {
   const [isAnotherReason, setIsAnotherReason] = useState(false)
@@ -86,7 +86,7 @@ export const BanUserModal = ({ name, id }: DropdownUsersProps) => {
             onValueChange={onValueChange}
             {...register('reason')}
           >
-            <SelectOptionsList options={optionSelectLanguage} />
+            <SelectOptionsList options={optionsBanUser} />
           </SelectBox>
           <Typography variant="error"></Typography>
         </div>
