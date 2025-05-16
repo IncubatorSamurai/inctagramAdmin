@@ -3,6 +3,7 @@ import { RemoveUserModal } from '@/features/UsersList/RemoveUserModal/RemoveUser
 import { BlockIcon } from '@/shared/assets/icons/BlockIcon'
 import { MoreHorizontalIcon } from '@/shared/assets/icons/MoreHorizontalIcon'
 import { PersonRemoveIcon } from '@/shared/assets/icons/PersonRemoveIcon'
+import { UnblockIcon } from '@/shared/assets/icons/UnblockIcon'
 import { PATH } from '@/shared/config/routes'
 import { UserBan, useRemoveUserMutation, useUnbanUserMutation } from '@/shared/graphql'
 import { Button } from '@/shared/ui/button'
@@ -73,7 +74,7 @@ export const DropdownUsers = ({ id, name, userBan }: DropdownUsersProps) => {
             <UserListModal
               trigger={
                 <Button variant="icon">
-                  <BlockIcon />
+                  <UnblockIcon />
                   <Typography variant="regular_text_14">{t('unban')}</Typography>
                 </Button>
               }
