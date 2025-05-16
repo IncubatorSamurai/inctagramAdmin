@@ -1,17 +1,20 @@
-import { SelectBox } from '@/shared/ui/select'
-import { SelectOptionsList } from '@/shared/ui/select/SelectOptionsList'
+import { UserBlockStatus } from '@/shared/graphql'
+import { SelectBox, SelectOptionsList } from '@/shared/ui/select'
 import { useTranslations } from 'next-intl'
-import React from 'react'
 
-export const UserSelect = () => {
+type props = {
+  changeBlockStatus: (newValue: UserBlockStatus) => void
+}
+
+export const UserSelect = ({ changeBlockStatus }: props) => {
   const t = useTranslations('search')
   const optionSelectUser = [
-    { id: 'block', label: t('blocked') },
-    { id: 'non_block', label: t('notBlocked') },
+    { id: UserBlockStatus.Blocked, label: t('blocked') },
+    { id: UserBlockStatus.Unblocked, label: t('notBlocked') },
   ]
 
   return (
-    <SelectBox placeholder={t('notSelected')}>
+    <SelectBox placeholder={t('notSelected')} onValueChange={changeBlockStatus}>
       <SelectOptionsList options={optionSelectUser} />
     </SelectBox>
   )

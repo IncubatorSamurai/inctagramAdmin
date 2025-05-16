@@ -8,10 +8,11 @@ import { useEffect, useState } from 'react'
 import { UsersListTable } from '@/features/UsersList/UsersListTable/UsersListTable'
 import { useTranslations } from 'next-intl'
 import { useSortAndPagination } from '@/shared/hooks'
+import { UserBlockStatus } from '@/shared/graphql'
 
 export const UsersListData = () => {
-
   const [searchUser, setSearchUser] = useState('')
+  const [currentBlockStatus, setCurrentBlockStatus] = useState<UserBlockStatus>(UserBlockStatus.All)
   const {
     pageSize,
     pageNumber,
@@ -30,6 +31,7 @@ export const UsersListData = () => {
       sortBy: sortField,
       searchTerm: debouncedValue,
       sortDirection,
+      statusFilter: currentBlockStatus,
     },
   })
 
@@ -59,13 +61,13 @@ export const UsersListData = () => {
           />
         </div>
         <div className={s.userList_header_select}>
-          <UserSelect />
+          <UserSelect changeBlockStatus={setCurrentBlockStatus} />
         </div>
       </div>
       <UsersListTable
         users={users}
         sortField={sortField}
-        sortDirection = {sortDirection}
+        sortDirection={sortDirection}
         onSortChange={handleSortChange}
       />
       {pagination && (

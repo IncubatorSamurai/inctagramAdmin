@@ -68,10 +68,6 @@
       "Loading": "Loading..."
     }
   },
-  "pagination": {
-    "show": "Show",
-    "onPage": "on page"
-  },
   "search": {
     "search": "Search",
     "notSelected": "Not selected",
@@ -151,5 +147,18 @@
   "pagination": {
     "show": "Show",
     "onPage": "on page"
+  },
+  "usersList": {
+    "errorUnbanUser": "Failed to unblock user",
+    "successUnbanUser": "User unblocked",
+    "errorDeleteUser": "Failed to delete user",
+    "successDeleteUser": "User deleted",
+    "deleteUser": "Delete User",
+    "banInTheSystem": "Ban in the System",
+    "unban": "Un-ban",
+    "moreInformation": "More information",
+    "yes": "Yes",
+    "no": "No",
+    "unbanDescriptionForModal": "Are you sure want to un-ban"
   }
 }
