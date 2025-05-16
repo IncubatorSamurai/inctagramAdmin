@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import s from './DropdownUsers.module.scss'
 import { BanUserModal } from '../BanUserModal/BanUserModal'
 
+// TODO: вынести в shared
 export type DropdownUsersProps = {
   id: number
   name: string
