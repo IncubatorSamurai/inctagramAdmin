@@ -73,7 +73,7 @@ export const UsersListTable = ({ users, onSortChange, sortField, sortDirection }
               </Typography>
             </TableCell>
             <TableCell>
-              <DropdownUsers id={user.id} name={user.userName} />
+              <DropdownUsers id={user.id} name={user.userName} userBan={user.userBan || null} />
             </TableCell>
           </TableRow>
         ))}

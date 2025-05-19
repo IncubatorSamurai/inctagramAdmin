@@ -1,0 +1,29 @@
+.banUserModal {
+  max-width: 378px;
+  width: 100%;
+  z-index: 0;
+}
+.banUserContainer {
+  padding: 30px 24px;
+}
+.selectBox {
+  margin-top: 18px;
+  z-index: 3;
+  position: relative;
+  button {
+    border-color: var(--color-dark-100);
+  }
+}
+.inputBox {
+  margin: 15px 0;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.btn {
+  margin-top: 48px;
+  max-width: 130px;
+  width: 100%;
+}

@@ -72,7 +72,7 @@
     "search": "Поиск",
     "notSelected": "Не выбрано",
     "blocked": "Заблокированные",
-    "notBlocked": "Не заблокированные",
+    "notBlocked": "Незаблокированные",
     "dateAdded": "Дата добавления",
     "profileLink": "Ссылка профиля",
     "userName": "Имя пользователя",
@@ -154,5 +154,18 @@
     "amount": "Сумма",
     "subscription": "Подписка",
     "paymentMethod": "Способ оплаты"
+  },
+  "usersList": {
+    "errorUnbanUser": "Не удалось разблокировать пользователя",
+    "successUnbanUser": "Пользователь разблокирован",
+    "errorDeleteUser": "Ошибка при удалении пользователя",
+    "successDeleteUser": "Пользователь удалён",
+    "deleteUser": "Удалить пользователя",
+    "banInTheSystem": "Заблокировать в системе",
+    "unban": "Разблокировать",
+    "moreInformation": "Дополнительная информация",
+    "yes": "Да",
+    "no": "Нет",
+    "unbanDescriptionForModal": "Вы уверены, что хотите разблокировать"
   }
 }
