@@ -7,6 +7,7 @@ import { Typography } from '@/shared/ui/typography'
 import { SubscriptionPaymentsModel } from '@/shared/graphql'
 import { NoAvatar } from '@/shared/ui/noAvatar/NoAvatar'
 import { useTranslations } from 'next-intl'
+import { parseIsoDate } from '@/shared/utils'
 
 export type Props = {
   payments: SubscriptionPaymentsModel[]
@@ -73,9 +74,7 @@ export const PaymentsListTable = ({ payments, onSortChange, sortField, sortDirec
               </span>
             </TableCell>
             <TableCell>
-              <Typography variant={'small_text'}>
-                {new Date(`${payment.createdAt}`).toLocaleDateString('ru-RU')}
-              </Typography>
+              <Typography variant={'small_text'}>{parseIsoDate(`${payment.createdAt}`)}</Typography>
             </TableCell>
             <TableCell>
               <Typography variant={'small_text'}>{`${payment.amount} $`}</Typography>
