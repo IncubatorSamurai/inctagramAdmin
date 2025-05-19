@@ -12,7 +12,7 @@ export const RemoveUserModal = ({ name, trigger, deleteUser }: DeleteUser) => {
   return (
     <Modal title="Delete User" className={s.deleteUserModal} trigger={trigger}>
       <div className={s.deleteUserContainer}>
-        <Typography variant="regular_text_16"> {`Are you sure to delete user ${name}?`}</Typography>
+        <Typography variant="regular_text_16"> {`Are you sure you want to delete ${name}?`}</Typography>
         <div className={s.deleteUserBtn}>
           <DialogClose asChild>
             <Button variant="primary" fullWidth>
