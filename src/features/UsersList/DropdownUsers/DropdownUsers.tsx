@@ -1,6 +1,5 @@
 import { client } from '@/app/_providers/apollo-client'
 import { RemoveUserModal } from '@/features/UsersList/RemoveUserModal/RemoveUserModal'
-import { BlockIcon } from '@/shared/assets/icons/BlockIcon'
 import { MoreHorizontalIcon } from '@/shared/assets/icons/MoreHorizontalIcon'
 import { PersonRemoveIcon } from '@/shared/assets/icons/PersonRemoveIcon'
 import { UnblockIcon } from '@/shared/assets/icons/UnblockIcon'
@@ -13,8 +12,10 @@ import { useTranslations } from 'next-intl'
 import { toast } from 'react-toastify'
 import { UserListModal } from '../UserListModal'
 import s from './DropdownUsers.module.scss'
+import { BanUserModal } from '../BanUserModal/BanUserModal'
 
-type DropdownUsersProps = {
+// TODO: вынести в shared
+export type DropdownUsersProps = {
   id: number
   name: string
   userBan: UserBan | null
@@ -66,10 +67,7 @@ export const DropdownUsers = ({ id, name, userBan }: DropdownUsersProps) => {
         </li>
         <li className={s.tableDropdownItem}>
           {!userBan ? (
-            <Button variant="icon">
-              <BlockIcon />
-              <Typography variant="regular_text_14">{t('banInTheSystem')}</Typography>
-            </Button>
+            <BanUserModal name={name} id={id} />
           ) : (
             <UserListModal
               trigger={
