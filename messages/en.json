@@ -148,6 +148,13 @@
     "show": "Show",
     "onPage": "on page"
   },
+  "payments": {
+    "userName": "Username",
+    "date": "Date added",
+    "amount": "Amount",
+    "subscription": "Subscription",
+    "paymentMethod": "Payment Method"
+  },
   "usersList": {
     "errorUnbanUser": "Failed to unblock user",
     "successUnbanUser": "User unblocked",

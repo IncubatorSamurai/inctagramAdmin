@@ -1,0 +1,21 @@
+.usersList {
+  padding: 76px 24px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  .userList_header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .userList_header_search {
+    width: 100%;
+
+
+    input {
+      width: 100%;
+    }
+  }
+
+}

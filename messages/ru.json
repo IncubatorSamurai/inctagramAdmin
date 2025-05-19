@@ -148,6 +148,13 @@
     "show": "Показать",
     "onPage": "на странице"
   },
+  "payments": {
+    "userName": "Имя пользователя",
+    "date": "Дата добавления",
+    "amount": "Сумма",
+    "subscription": "Подписка",
+    "paymentMethod": "Способ оплаты"
+  },
   "usersList": {
     "errorUnbanUser": "Не удалось разблокировать пользователя",
     "successUnbanUser": "Пользователь разблокирован",
