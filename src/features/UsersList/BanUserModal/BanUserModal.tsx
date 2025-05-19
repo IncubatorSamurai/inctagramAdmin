@@ -13,10 +13,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useBanUserMutation } from '@/shared/graphql/banUser.generated'
 import { client } from '@/app/_providers/apollo-client'
 import { toast } from 'react-toastify'
-import { DropdownUsersProps } from '../DropdownUsers/DropdownUsers'
 import { optionsBanUser } from './consts'
+import { UserIdAndNameProps } from '@/shared/types'
 
-export const BanUserModal = ({ name, id }: DropdownUsersProps) => {
+export const BanUserModal = ({ name, id }: UserIdAndNameProps) => {
   const [isAnotherReason, setIsAnotherReason] = useState(false)
   const [open, setOpen] = useState(false)
 

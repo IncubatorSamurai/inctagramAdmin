@@ -2,29 +2,26 @@ import { client } from '@/app/_providers/apollo-client'
 import { RemoveUserModal } from '@/features/UsersList/RemoveUserModal/RemoveUserModal'
 import { MoreHorizontalIcon } from '@/shared/assets/icons/MoreHorizontalIcon'
 import { PersonRemoveIcon } from '@/shared/assets/icons/PersonRemoveIcon'
-import { UnblockIcon } from '@/shared/assets/icons/UnblockIcon'
 import { PATH } from '@/shared/config/routes'
-import { UserBan, useRemoveUserMutation, useUnbanUserMutation } from '@/shared/graphql'
+import { UserBan, useRemoveUserMutation } from '@/shared/graphql'
 import { Button } from '@/shared/ui/button'
 import { Dropdown } from '@/shared/ui/dropdown'
 import { Typography } from '@/shared/ui/typography'
 import { useTranslations } from 'next-intl'
 import { toast } from 'react-toastify'
-import { UserListModal } from '../UserListModal'
 import s from './DropdownUsers.module.scss'
-import { BanUserModal } from '../BanUserModal/BanUserModal'
+import { UnBanUserModal } from '@/features/UsersList/UnBanUserModal'
+import { BanUserModal } from '@/features/UsersList/BanUserModal'
 
-// TODO: вынести в shared
-export type DropdownUsersProps = {
+export type Props = {
   id: number
   name: string
   userBan: UserBan | null
 }
 
-export const DropdownUsers = ({ id, name, userBan }: DropdownUsersProps) => {
+export const DropdownUsers = ({ id, name, userBan }: Props) => {
   const t = useTranslations('usersList')
   const [removeUserMutation] = useRemoveUserMutation()
-  const [unbanUser] = useUnbanUserMutation()
 
   const handleDelete = async () => {
     try {
@@ -35,18 +32,6 @@ export const DropdownUsers = ({ id, name, userBan }: DropdownUsersProps) => {
       })
     } catch {
       toast.error(t('errorDeleteUser'))
-    }
-  }
-
-  const handleUnbanUser = async () => {
-    try {
-      await unbanUser({ variables: { userId: id } })
-      toast.success(t('successUnbanUser'))
-      await client.refetchQueries({
-        include: ['GetUsers'],
-      })
-    } catch {
-      toast.error(t('errorUnbanUser'))
     }
   }
 
@@ -66,21 +51,7 @@ export const DropdownUsers = ({ id, name, userBan }: DropdownUsersProps) => {
           />
         </li>
         <li className={s.tableDropdownItem}>
-          {!userBan ? (
-            <BanUserModal name={name} id={id} />
-          ) : (
-            <UserListModal
-              trigger={
-                <Button variant="icon">
-                  <UnblockIcon />
-                  <Typography variant="regular_text_14">{t('unban')}</Typography>
-                </Button>
-              }
-              title={t('unban')}
-              description={`${t('unbanDescriptionForModal')} ${name}?`}
-              onClick={handleUnbanUser}
-            />
-          )}
+          {!userBan ? <BanUserModal name={name} id={id} /> : <UnBanUserModal name={name} id={id} />}
         </li>
         <li className={s.tableDropdownItem}>
           <Button

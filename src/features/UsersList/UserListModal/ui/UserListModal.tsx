@@ -9,13 +9,28 @@ type Props = {
   title: string
   description: string
   onClick: () => void
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
-export const UserListModal = ({ trigger, title, description, onClick }: Props) => {
+export const UserListModal = ({
+  trigger,
+  title,
+  description,
+  onClick,
+  open,
+  onOpenChange,
+}: Props) => {
   const t = useTranslations('usersList')
 
   return (
-    <Modal title={title} className={s.modal} trigger={trigger}>
+    <Modal
+      title={title}
+      className={s.modal}
+      trigger={trigger}
+      open={open}
+      onOpenChange={onOpenChange}
+    >
       <div className={s.container}>
         <Typography variant="regular_text_16">{description}</Typography>
 
