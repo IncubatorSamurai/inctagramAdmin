@@ -166,6 +166,7 @@
     "moreInformation": "More information",
     "yes": "Yes",
     "no": "No",
-    "unbanDescriptionForModal": "Are you sure want to un-ban"
+    "unbanDescriptionForModal": "Are you sure want to un-ban",
+    "deleteDescriptionForModal": "Are you sure you want to delete"
   }
 }

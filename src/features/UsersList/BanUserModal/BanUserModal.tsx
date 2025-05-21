@@ -15,8 +15,10 @@ import { client } from '@/app/_providers/apollo-client'
 import { toast } from 'react-toastify'
 import { optionsBanUser } from './consts'
 import { UserIdAndNameProps } from '@/shared/types'
+import { useTranslations } from 'next-intl'
 
 export const BanUserModal = ({ name, id }: UserIdAndNameProps) => {
+  const t = useTranslations('usersList')
   const [isAnotherReason, setIsAnotherReason] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -74,7 +76,7 @@ export const BanUserModal = ({ name, id }: UserIdAndNameProps) => {
       trigger={
         <Button variant="icon">
           <BlockIcon />
-          <Typography variant="regular_text_14">Ban in the System</Typography>
+          <Typography variant="regular_text_14">{t("banInTheSystem")}</Typography>
         </Button>
       }
     >

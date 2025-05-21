@@ -166,6 +166,7 @@
     "moreInformation": "Дополнительная информация",
     "yes": "Да",
     "no": "Нет",
+    "deleteDescriptionForModal": "Вы уверены, что хотите удалить",
     "unbanDescriptionForModal": "Вы уверены, что хотите разблокировать"
   }
 }
