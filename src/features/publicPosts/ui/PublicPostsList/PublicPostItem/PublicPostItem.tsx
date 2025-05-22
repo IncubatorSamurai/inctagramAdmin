@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { forwardRef, useState } from 'react'
 import s from './PublicPostItem.module.scss'
 import { PublicPostImages } from '@/features/publicPosts/ui/PublicPostsList/PublicPostImages/PublicPostImages'
 import Image from 'next/image'
@@ -16,7 +16,59 @@ type PublicPostItem = {
   item: Post
 }
 
-export const PublicPostItem = ({ item }: PublicPostItem) => {
+// export const PublicPostItem = ({ item }: PublicPostItem) => {
+//   const [expandedPostId, setExpandedPostId] = useState<string | null>(null)
+
+//   const toggleExpand = (postId: string) => {
+//     setExpandedPostId(prev => (prev === postId ? null : postId))
+//   }
+//   const isExpanded = expandedPostId === String(item.id)
+
+//   return (
+//     <li key={item.id} className={`${s.public_post} ${isExpanded ? s.expanded : ''}`}>
+//       <div className={s.public_posts_img}>
+//         <PublicPostImages
+//           userName={item.userName}
+//           images={item.images}
+//           postId={String(item.id)}
+//           isExpanded={isExpanded}
+//         />
+//       </div>
+
+//       <div className={s.public_posts_content}>
+//         <div className={s.public_post_name}>
+//           {item.avatarOwner ? (
+//             <Image
+//               className={s.public_post_avatar}
+//               src={item.avatarOwner}
+//               alt="User avatar"
+//               width={WIDTH_AVATAR}
+//               height={HEIGHT_AVATAR}
+//             />
+//           ) : (
+//             <NoAvatar />
+//           )}
+//           <Typography variant={'h3'}>{item.userName}</Typography>
+//           {isExpanded && <BlockIcon />}
+//         </div>
+
+//         <div className={s.public_post_description}>
+//           <Typography variant={'small_text'} className={s.public_post_data}>
+//             {formatDistanceToNow(new Date(item.createdAt), { addSuffix: true })}
+//           </Typography>
+
+//           <PublicPostDescription
+//             description={item.description}
+//             isExpanded={isExpanded}
+//             onToggleExpand={() => toggleExpand(String(item.id))}
+//           />
+//         </div>
+//       </div>
+//     </li>
+//   )
+// }
+
+export const PublicPostItem = forwardRef<HTMLLIElement, PublicPostItem>(({ item }, ref) => {
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null)
 
   const toggleExpand = (postId: string) => {
@@ -25,7 +77,7 @@ export const PublicPostItem = ({ item }: PublicPostItem) => {
   const isExpanded = expandedPostId === String(item.id)
 
   return (
-    <li key={item.id} className={`${s.public_post} ${isExpanded ? s.expanded : ''}`}>
+    <li ref={ref} className={`${s.public_post} ${isExpanded ? s.expanded : ''}`}>
       <div className={s.public_posts_img}>
         <PublicPostImages
           userName={item.userName}
@@ -66,4 +118,5 @@ export const PublicPostItem = ({ item }: PublicPostItem) => {
       </div>
     </li>
   )
-}
+})
+PublicPostItem.displayName = 'PublicPostItem'

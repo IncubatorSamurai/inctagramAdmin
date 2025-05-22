@@ -10,7 +10,6 @@ import { useTranslations } from 'next-intl'
 import { useSortAndPagination } from '@/shared/hooks'
 
 export const UsersListData = () => {
-
   const [searchUser, setSearchUser] = useState('')
   const {
     pageSize,
@@ -65,7 +64,7 @@ export const UsersListData = () => {
       <UsersListTable
         users={users}
         sortField={sortField}
-        sortDirection = {sortDirection}
+        sortDirection={sortDirection}
         onSortChange={handleSortChange}
       />
       {pagination && (
