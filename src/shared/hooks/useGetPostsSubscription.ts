@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useGetAllPostsLazyQuery, useGetAllPostsQuery } from '../graphql/getPosts.generated'
+import { useGetAllPostsLazyQuery } from '../graphql/getPosts.generated'
 import { useGetNewPostsSubscription } from '../graphql/subscriptionPosts.generated'
 import { ImageModel, Post } from '../api/post/postApi.types'
 import { useSearch } from './useSearch'
@@ -7,23 +7,17 @@ import { useDebounce } from './useDebounce'
 import { useInView } from 'react-intersection-observer'
 
 export const useNormalizedPosts = () => {
-  const [lastPostIdForNewPosts, setLastPostIdForNewPosts] = useState(0)
-  const { searchTerm, setSearchTerm } = useSearch()
-  const debouncedSearchTerm = useDebounce(searchTerm, 1500)
-  const { data, loading, error } = useGetAllPostsQuery({
-    variables: {
-      endCursorPostId: 0,
-      searchTerm: debouncedSearchTerm,
-    },
-  })
+  const [lastPostIdForNewPosts, setLastPostIdForNewPosts] = useState(0);
+  const { searchTerm, setSearchTerm } = useSearch();
+  const debouncedSearchTerm = useDebounce(searchTerm, 1500);
+  
+  const [fetchPosts, { data, loading, error }] = useGetAllPostsLazyQuery();
+  
+  const { data: subscriptionData } = useGetNewPostsSubscription({
+    skip: !!debouncedSearchTerm,
+  });
 
-const [fetchPosts, { data:lazyData}] = useGetAllPostsLazyQuery()
-console.log(lazyData);
-
-
-  const { data: subscriptionData } = useGetNewPostsSubscription()
-  const postsFromServer = data?.getPosts.items ?? []
-
+  const postsFromServer = data?.getPosts.items ?? [];
   const normalizePost = (item: any): Post => {
     if (!item || !item.id) {
       console.warn('Invalid post item:', item)
@@ -77,52 +71,76 @@ console.log(lazyData);
     }
   }
 
-  const [posts, setPosts] = useState<Post[]>([])
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [subscribedPosts, setSubscribedPosts] = useState<Post[]>([]); 
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
- const { ref: lastPostRef, inView } = useInView({
-    threshold: 0, 
-  })
- useEffect(() => {
-    if (inView && !loading && lastPostIdForNewPosts !== 0) {
-      setLastPostIdForNewPosts(lastPostIdForNewPosts)
-      fetchPosts({
-         variables: {
-      endCursorPostId: lastPostIdForNewPosts,
-      searchTerm: debouncedSearchTerm,
-    },
-      })
-      console.log(lastPostIdForNewPosts)
-    }
-  }, [inView, loading, lastPostIdForNewPosts])
+  const { ref: lastPostRef, inView } = useInView({ threshold: 0 });
 
-  //
 
-const lastPost = posts[posts.length - 1];
-// const lastPostId = lastPost ? lastPost.id : 0;
   useEffect(() => {
-    if (lastPost) {
-    setLastPostIdForNewPosts(lastPost.id);
-  } else {
+    setPosts([]);
     setLastPostIdForNewPosts(0);
-  }
-  }, [posts])
+    fetchPosts({
+      variables: {
+        endCursorPostId: 0,
+        searchTerm: debouncedSearchTerm,
+      },
+    });
+  }, [debouncedSearchTerm]);
+
 
   useEffect(() => {
     if (postsFromServer.length) {
-      const normalized = postsFromServer.map(normalizePost)
-      setPosts(normalized)
+      const normalized = postsFromServer.map(normalizePost);
+      setPosts(prev => isInitialLoad ? normalized : [...prev, ...normalized]);
+      setIsInitialLoad(false);
     }
-  }, [postsFromServer])
+  }, [postsFromServer]);
+
 
   useEffect(() => {
-    const newPost = subscriptionData?.postAdded
-    console.log(newPost)
-
+    const newPost = subscriptionData?.postAdded;
     if (newPost) {
-      const normalizedNewPost = normalizePost(newPost)
-      setPosts(prev => [normalizedNewPost, ...prev])
+      const normalizedNewPost = normalizePost(newPost);
+      setSubscribedPosts(prev => [normalizedNewPost, ...prev]);
     }
-  }, [subscriptionData])
+  }, [subscriptionData]);
 
-  return { posts, loading, error, setSearchTerm, searchTerm , lastPostRef }
-}
+
+  useEffect(() => {
+    if (inView && !loading && lastPostIdForNewPosts !== 0 && posts.length > 0) {
+      fetchPosts({
+        variables: {
+          endCursorPostId: lastPostIdForNewPosts,
+          searchTerm: debouncedSearchTerm,
+        },
+      });
+    }
+  }, [inView, loading, lastPostIdForNewPosts]);
+
+
+  useEffect(() => {
+    if (posts.length) {
+      setLastPostIdForNewPosts(posts[posts.length - 1].id);
+    }
+  }, [posts]);
+
+
+  const displayedPosts = debouncedSearchTerm 
+    ? posts 
+    : [...subscribedPosts, ...posts];
+
+  const uniquePosts = Array.from(
+    new Map(displayedPosts.map(post => [post.id, post])).values()
+  );
+
+  return { 
+    posts: Array.from(uniquePosts), 
+    loading, 
+    error, 
+    setSearchTerm, 
+    searchTerm, 
+    lastPostRef,
+  };
+};
