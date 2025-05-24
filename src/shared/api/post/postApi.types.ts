@@ -55,10 +55,7 @@ export type PostModel = {
   updatedAt: string
   ownerId: number
   avatarOwner: string
-  owner: {
-    firstName: string
-    lastName: string
-  }
+  owner: Owner
   likesCount: number
   isLiked: boolean
   avatarWhoLikes: boolean
@@ -126,8 +123,10 @@ export type ResponseGetById = {
 }
 
 export type User = {
+  id?: number
   firstName: string
-  lastName: string
+  lastName?: string
+  avatarUrl?: string
 }
 
 export type Post = {
@@ -141,9 +140,9 @@ export type Post = {
   ownerId: number
   avatarOwner: string
   owner: User
-  likesCount: number
-  isLiked: boolean
-  avatarWhoLikes: boolean
+  likesCount?: number
+  isLiked?: boolean
+  avatarWhoLikes?: boolean
 }
 
 export type PublicPostsResponse = {

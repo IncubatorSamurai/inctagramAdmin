@@ -1,18 +1,16 @@
-import * as Types from './types';
+import * as Types from './types'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions = {} as const;
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {} as const
 export type GetPaymentsByUserQueryVariables = Types.Exact<{
-  userId: Types.Scalars['Int']['input'];
-  pageSize?: Types.InputMaybe<Types.Scalars['Int']['input']>;
-  pageNumber?: Types.InputMaybe<Types.Scalars['Int']['input']>;
-  sortBy?: Types.InputMaybe<Types.Scalars['String']['input']>;
-  sortDirection?: Types.InputMaybe<Types.SortDirection>;
-}>;
+  userId: Types.Scalars['Int']['input']
+  pageSize?: Types.InputMaybe<Types.Scalars['Int']['input']>
+  pageNumber?: Types.InputMaybe<Types.Scalars['Int']['input']>
+  sortBy?: Types.InputMaybe<Types.Scalars['String']['input']>
+  sortDirection?: Types.InputMaybe<Types.SortDirection>
+}>
 
-
-export type GetPaymentsByUserQuery = { __typename?: 'Query', getPaymentsByUser: { __typename?: 'PaymentPaginationModel', pagesCount: number, page: number, pageSize: number, totalCount: number, items: Array<{ __typename?: 'SubscriptionByPaymentModel', id: string, businessAccountId: number, status: Types.StatusSubscriptionType, dateOfPayment?: string | null, endDate?: string | null, type: Types.SubscriptionType, price: number, paymentType?: Types.PaymentMethod | null, payments: Array<{ __typename?: 'Payment', id?: number | null }> }> } };
 
 export type GetPaymentsQueryVariables = Types.Exact<{
   pageSize?: Types.InputMaybe<Types.Scalars['Int']['input']>;
@@ -26,35 +24,42 @@ export type GetPaymentsQueryVariables = Types.Exact<{
 export type GetPaymentsQuery = { __typename?: 'Query', getPayments: { __typename?: 'PaymentsPaginationModel', totalCount: number, items: Array<{ __typename?: 'SubscriptionPaymentsModel', id?: number | null, userId?: number | null, paymentMethod: Types.PaymentMethod, amount?: number | null, currency?: Types.CurrencyType | null, createdAt?: string | null, endDate?: string | null, type: Types.SubscriptionType, userName: string, avatars?: Array<{ __typename?: 'Avatar', url?: string | null }> | null }> } };
 
 
+
 export const GetPaymentsByUserDocument = gql`
-    query GetPaymentsByUser($userId: Int!, $pageSize: Int = 10, $pageNumber: Int = 1, $sortBy: String = "createdAt", $sortDirection: SortDirection = desc) {
-  getPaymentsByUser(
-    userId: $userId
-    pageSize: $pageSize
-    pageNumber: $pageNumber
-    sortBy: $sortBy
-    sortDirection: $sortDirection
+  query GetPaymentsByUser(
+    $userId: Int!
+    $pageSize: Int = 10
+    $pageNumber: Int = 1
+    $sortBy: String = "createdAt"
+    $sortDirection: SortDirection = desc
   ) {
-    pagesCount
-    page
-    pageSize
-    totalCount
-    items {
-      id
-      businessAccountId
-      status
-      dateOfPayment
-      endDate
-      type
-      price
-      paymentType
-      payments {
+    getPaymentsByUser(
+      userId: $userId
+      pageSize: $pageSize
+      pageNumber: $pageNumber
+      sortBy: $sortBy
+      sortDirection: $sortDirection
+    ) {
+      pagesCount
+      page
+      pageSize
+      totalCount
+      items {
         id
+        businessAccountId
+        status
+        dateOfPayment
+        endDate
+        type
+        price
+        paymentType
+        payments {
+          id
+        }
       }
     }
   }
-}
-    `;
+`
 
 /**
  * __useGetPaymentsByUserQuery__
@@ -76,6 +81,7 @@ export const GetPaymentsByUserDocument = gql`
  *   },
  * });
  */
+
 export function useGetPaymentsByUserQuery(baseOptions: Apollo.QueryHookOptions<GetPaymentsByUserQuery, GetPaymentsByUserQueryVariables> & ({ variables: GetPaymentsByUserQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetPaymentsByUserQuery, GetPaymentsByUserQueryVariables>(GetPaymentsByUserDocument, options);
@@ -156,3 +162,4 @@ export type GetPaymentsQueryHookResult = ReturnType<typeof useGetPaymentsQuery>;
 export type GetPaymentsLazyQueryHookResult = ReturnType<typeof useGetPaymentsLazyQuery>;
 export type GetPaymentsSuspenseQueryHookResult = ReturnType<typeof useGetPaymentsSuspenseQuery>;
 export type GetPaymentsQueryResult = Apollo.QueryResult<GetPaymentsQuery, GetPaymentsQueryVariables>;
+
