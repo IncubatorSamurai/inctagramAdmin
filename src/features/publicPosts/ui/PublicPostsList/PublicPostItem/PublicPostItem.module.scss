@@ -15,9 +15,10 @@
 
 .public_post_name {
   display: flex;
-  align-items: center;
   flex-direction: row;
   column-gap: 12px;
+  align-items: center;
+
   padding: 12px 0;
 
   svg {
