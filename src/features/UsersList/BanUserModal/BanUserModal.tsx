@@ -17,7 +17,11 @@ import { optionsBanUser } from './consts'
 import { UserIdAndNameProps } from '@/shared/types'
 import { useTranslations } from 'next-intl'
 
-export const BanUserModal = ({ name, id }: UserIdAndNameProps) => {
+type Props = {
+  isHidden?: boolean
+} & UserIdAndNameProps
+
+export const BanUserModal = ({ name, id, isHidden }: Props) => {
   const t = useTranslations('usersList')
   const [isAnotherReason, setIsAnotherReason] = useState(false)
   const [open, setOpen] = useState(false)
@@ -76,7 +80,7 @@ export const BanUserModal = ({ name, id }: UserIdAndNameProps) => {
       trigger={
         <Button variant="icon">
           <BlockIcon />
-          <Typography variant="regular_text_14">{t("banInTheSystem")}</Typography>
+          {!isHidden && <Typography variant="regular_text_14">{t('banInTheSystem')}</Typography>}
         </Button>
       }
     >

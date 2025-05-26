@@ -7,7 +7,7 @@ import { useNormalizedPosts } from '@/shared/hooks/useGetPostsSubscription'
 
 export const PostListSub = () => {
   const t = useTranslations('search')
-  const { posts,  error, setSearchTerm, searchTerm, lastPostRef } = useNormalizedPosts()
+  const { posts, error, setSearchTerm, searchTerm, lastPostRef } = useNormalizedPosts()
   if (error) return <div>Error loading posts</div>
   return (
     <div className={s.root}>

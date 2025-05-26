@@ -1,34 +1,14 @@
-// 'use client'
-// import s from './PublicPostsList.module.scss'
-// import { Post } from '@/shared/api/post/postApi.types'
-// import { PublicPostItem } from '@/features/publicPosts/ui/PublicPostsList/PublicPostItem/PublicPostItem'
-
-// type PublicPostsList = {
-//   items: Post[]
-//   lastPostRef?: React.Ref<HTMLDivElement>
-// }
-
-// export const PublicPostsList = ({ items,lastPostRef }: PublicPostsList) => {
-//   return (
-//     <>
-//       <ul className={s.public_posts}>
-//         {items.map((item,index) => {
-//           return <PublicPostItem item={item} key={String(item.id) } />
-//         })}
-//       </ul>
-//     </>
-//   )
-// }
-
 'use client'
 import s from './PublicPostsList.module.scss'
-import { Post } from '@/shared/api/post/postApi.types'
 import { PublicPostItem } from '@/features/publicPosts/ui/PublicPostsList/PublicPostItem/PublicPostItem'
 import React from 'react'
+import { GetAllPostsQuery } from '@/shared/graphql/getPosts.generated'
+
+type PostItem = GetAllPostsQuery['getPosts']['items'][number]
 
 type PublicPostsListProps = {
-  items: Post[]
-  lastPostRef?: React.Ref<HTMLLIElement> // поменял на HTMLLIElement
+  items: PostItem[]
+  lastPostRef?: React.Ref<HTMLLIElement>
 }
 
 export const PublicPostsList = ({ items, lastPostRef }: PublicPostsListProps) => {
@@ -36,13 +16,7 @@ export const PublicPostsList = ({ items, lastPostRef }: PublicPostsListProps) =>
     <ul className={s.public_posts}>
       {items.map((item, index) => {
         const isLast = index === items.length - 1
-        return (
-          <PublicPostItem
-            key={String(item.id)}
-            item={item}
-            ref={isLast ? lastPostRef : undefined}
-          />
-        )
+        return <PublicPostItem key={item.id} item={item} ref={isLast ? lastPostRef : undefined} />
       })}
     </ul>
   )

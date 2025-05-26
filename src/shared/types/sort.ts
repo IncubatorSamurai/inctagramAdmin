@@ -3,7 +3,7 @@ import { SortDirection } from '@/shared/graphql'
 export enum SortableField {
   USERNAME = 'userName',
   CREATED_AT = 'createdAt',
-  AMOUNT =  'amount',
+  AMOUNT = 'amount',
   PAYMENT_METHOD = 'paymentMethod',
 }
 
