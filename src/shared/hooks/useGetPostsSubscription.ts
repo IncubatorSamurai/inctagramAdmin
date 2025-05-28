@@ -23,7 +23,7 @@ export const useNormalizedPosts = () => {
   const [posts, setPosts] = useState<PostItem[]>([])
   const [isInitialLoad, setIsInitialLoad] = useState(true)
 
-  const { ref: lastPostRef, inView } = useInView({ threshold: 0 })
+  const { ref: lastPostRef, inView } = useInView({ threshold: 0.25 })
 
   useEffect(() => {
     setPosts([])
@@ -63,7 +63,7 @@ export const useNormalizedPosts = () => {
         },
       })
     }
-  }, [inView, loading, lastPostIdForNewPosts])
+  }, [inView, loading])
 
   useEffect(() => {
     if (posts.length) {
