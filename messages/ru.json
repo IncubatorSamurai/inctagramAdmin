@@ -68,15 +68,11 @@
       "Loading": "Загрузка..."
     }
   },
-  "pagination": {
-    "show": "Показать",
-    "onPage": "на странице"
-  },
   "search": {
     "search": "Поиск",
     "notSelected": "Не выбрано",
     "blocked": "Заблокированные",
-    "notBlocked": "Не заблокированные",
+    "notBlocked": "Незаблокированные",
     "dateAdded": "Дата добавления",
     "profileLink": "Ссылка профиля",
     "userName": "Имя пользователя",
@@ -151,5 +147,26 @@
   "pagination": {
     "show": "Показать",
     "onPage": "на странице"
+  },
+  "payments": {
+    "userName": "Имя пользователя",
+    "date": "Дата добавления",
+    "amount": "Сумма",
+    "subscription": "Подписка",
+    "paymentMethod": "Способ оплаты"
+  },
+  "usersList": {
+    "errorUnbanUser": "Не удалось разблокировать пользователя",
+    "successUnbanUser": "Пользователь разблокирован",
+    "errorDeleteUser": "Ошибка при удалении пользователя",
+    "successDeleteUser": "Пользователь удалён",
+    "deleteUser": "Удалить пользователя",
+    "banInTheSystem": "Заблокировать в системе",
+    "unban": "Разблокировать",
+    "moreInformation": "Дополнительная информация",
+    "yes": "Да",
+    "no": "Нет",
+    "deleteDescriptionForModal": "Вы уверены, что хотите удалить",
+    "unbanDescriptionForModal": "Вы уверены, что хотите разблокировать"
   }
 }

@@ -1,18 +1,16 @@
 'use client'
-import { useGetUsersQuery } from '@/shared/graphql/users.generated'
-import s from './UsersListData.module.scss'
+
+import s from './PaymentsData.module.scss'
 import { Input } from '@/shared/ui/input'
-import { UserSelect } from '@/features/UsersList/UserSelect'
 import { Pagination } from '@/shared/ui/pagination'
 import { useEffect, useState } from 'react'
-import { UsersListTable } from '@/features/UsersList/UsersListTable/UsersListTable'
-import { useTranslations } from 'next-intl'
+import { PaymentsListTable } from '@/features/paymentsList/PaymentsListTable/PaymentsListTable'
+import { useGetPaymentsQuery } from '@/shared/graphql'
 import { useSortAndPagination } from '@/shared/hooks'
-import { UserBlockStatus } from '@/shared/graphql'
+import { useTranslations } from 'next-intl'
 
-export const UsersListData = () => {
+export const PaymentsData = () => {
   const [searchUser, setSearchUser] = useState('')
-  const [currentBlockStatus, setCurrentBlockStatus] = useState<UserBlockStatus>(UserBlockStatus.All)
   const {
     pageSize,
     pageNumber,
@@ -24,19 +22,19 @@ export const UsersListData = () => {
   } = useSortAndPagination()
 
   const [debouncedValue, setDebouncedValue] = useState(searchUser)
-  const { data } = useGetUsersQuery({
+
+  const { data } = useGetPaymentsQuery({
     variables: {
       pageSize,
       pageNumber,
       sortBy: sortField,
       searchTerm: debouncedValue,
       sortDirection,
-      statusFilter: currentBlockStatus,
     },
   })
 
-  const pagination = data?.getUsers?.pagination
-  const users = data?.getUsers?.users ?? []
+  const pagination = data?.getPayments
+  const payments = data?.getPayments.items ?? []
 
   useEffect(() => {
     const handlerTimeOut = setTimeout(() => {
@@ -60,12 +58,9 @@ export const UsersListData = () => {
             onChange={e => setSearchUser(e.target.value)}
           />
         </div>
-        <div className={s.userList_header_select}>
-          <UserSelect changeBlockStatus={setCurrentBlockStatus} />
-        </div>
       </div>
-      <UsersListTable
-        users={users}
+      <PaymentsListTable
+        payments={payments}
         sortField={sortField}
         sortDirection={sortDirection}
         onSortChange={handleSortChange}

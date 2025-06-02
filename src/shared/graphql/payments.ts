@@ -29,3 +29,31 @@ export const GET_PAYMENT_BY_USER = gql(`
     } 
   }
 `)
+export const GET_PAYMENTS = gql(`query GetPayments(
+  $pageSize: Int
+$pageNumber: Int
+$sortBy: String = "createdAt"
+$sortDirection: SortDirection = desc
+$searchTerm: String ) {
+  getPayments(pageSize: $pageSize, pageNumber: $pageNumber, sortBy: $sortBy, sortDirection: $sortDirection, searchTerm: $searchTerm) {
+    totalCount,
+      items{
+      id,
+        userId,
+        paymentMethod,
+        amount,
+        currency,
+        createdAt,
+        endDate,
+        type,
+        userName,
+        avatars{
+
+        url
+
+      }
+
+    }
+
+  }
+}`)
