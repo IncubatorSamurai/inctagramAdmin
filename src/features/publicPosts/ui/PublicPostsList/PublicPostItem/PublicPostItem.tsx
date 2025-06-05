@@ -20,7 +20,6 @@ type PublicPostItem = {
 }
 
 export const PublicPostItem = forwardRef<HTMLLIElement, PublicPostItem>(({ item }, ref) => {
-
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null)
 
   const toggleExpand = (postId: string) => {
