@@ -4,7 +4,7 @@ import { useGetNewPostsSubscription } from '../graphql/subscriptionPosts.generat
 import { useSearch } from './useSearch'
 import { useDebounce } from './useDebounce'
 import { useInView } from 'react-intersection-observer'
-import { useApolloClient } from '@apollo/client'
+import { Reference, StoreObject, useApolloClient } from '@apollo/client'
 
 export const useNormalizedPosts = () => {
   const { searchTerm, setSearchTerm } = useSearch()
@@ -27,11 +27,17 @@ export const useNormalizedPosts = () => {
       if (newPost) {
         client.cache.modify({
           fields: {
-            getPosts(existing = { items: [] }) {
-              const items = Array.isArray((existing as any)?.items) ? (existing as any).items : []
-              if (items.some((p: any) => p.id === newPost.id)) return existing
+            getPosts(existingPostsRefs = {}, { readField }) {
+              const items = (readField('items', existingPostsRefs) ?? []) as (
+                | StoreObject
+                | Reference
+              )[]
+
+              const ids = items.map(ref => readField('id', ref))
+
+              if (ids.includes(newPost.id)) return existingPostsRefs
               return {
-                ...existing,
+                ...existingPostsRefs,
                 items: [newPost, ...items],
               }
             },
@@ -82,7 +88,7 @@ export const useNormalizedPosts = () => {
         }).catch(() => {
           isFetchingRef.current = false
         })
-      }, 300)
+      }, 100)
     }
 
     return () => {
