@@ -8,15 +8,17 @@ type PostItem = GetAllPostsQuery['getPosts']['items'][number]
 
 type PublicPostsListProps = {
   items: PostItem[]
-  lastPostRef?: React.Ref<HTMLLIElement>
+  lastPostElementRef?: React.Ref<HTMLLIElement>
 }
 
-export const PublicPostsList = ({ items, lastPostRef }: PublicPostsListProps) => {
+export const PublicPostsList = ({ items, lastPostElementRef }: PublicPostsListProps) => {
   return (
     <ul className={s.public_posts}>
       {items.map((item, index) => {
         const isLast = index === items.length - 1
-        return <PublicPostItem key={item.id} item={item} ref={isLast ? lastPostRef : undefined} />
+        return (
+          <PublicPostItem key={item.id} item={item} ref={isLast ? lastPostElementRef : undefined} />
+        )
       })}
     </ul>
   )

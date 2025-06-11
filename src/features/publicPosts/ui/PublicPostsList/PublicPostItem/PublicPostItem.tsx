@@ -4,10 +4,8 @@ import { PublicPostImages } from '@/features/publicPosts/ui/PublicPostsList/Publ
 import Image from 'next/image'
 import { NoAvatar } from '@/shared/ui/noAvatar/NoAvatar'
 import { Typography } from '@/shared/ui/typography'
-// import { BlockIcon } from '@/shared/assets/icons/BlockIcon'
 import { formatDistanceToNow } from 'date-fns'
 import { PublicPostDescription } from '@/features/publicPosts/ui/PublicPostsList/PostDescription/PublicPostDescription'
-// import { Post } from '@/shared/api/post/postApi.types'
 import { BanUserModal } from '@/features/UsersList/BanUserModal'
 import { GetAllPostsQuery } from '@/shared/graphql/getPosts.generated'
 

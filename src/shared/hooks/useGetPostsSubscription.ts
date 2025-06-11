@@ -1,24 +1,48 @@
-import { useEffect, useRef } from 'react'
-import { useGetAllPostsQuery } from '../graphql/getPosts.generated'
+import { useEffect, useRef, useMemo, useCallback } from 'react'
+import { useGetAllPostsLazyQuery } from '../graphql/getPosts.generated'
 import { useGetNewPostsSubscription } from '../graphql/subscriptionPosts.generated'
 import { useSearch } from './useSearch'
 import { useDebounce } from './useDebounce'
-import { useInView } from 'react-intersection-observer'
 import { Reference, StoreObject, useApolloClient } from '@apollo/client'
 
-export const useNormalizedPosts = () => {
+import { NetworkStatus } from '@apollo/client'
+
+export const useGetPostsSubscription = () => {
   const { searchTerm, setSearchTerm } = useSearch()
   const debouncedSearchTerm = useDebounce(searchTerm, 1500)
-  const { ref: lastPostRef, inView } = useInView({ threshold: 0.25 })
   const client = useApolloClient()
+  const endCursorPostId = useRef<number | null>(null)
+  const lastRequestParams = useRef<{ endCursorPostId: number | null; searchTerm: string } | null>(
+    null
+  )
+  const hasMorePosts = useRef(true)
 
-  const { data, loading, error, fetchMore } = useGetAllPostsQuery({
-    variables: {
-      endCursorPostId: 0,
-      searchTerm: debouncedSearchTerm,
-    },
-    notifyOnNetworkStatusChange: true,
-  })
+  const [fetchPosts, { data: lazyData, loading, networkStatus, error, fetchMore }] =
+    useGetAllPostsLazyQuery({
+      notifyOnNetworkStatusChange: true,
+      fetchPolicy: 'cache-and-network',
+    })
+
+  useEffect(() => {
+    endCursorPostId.current = null
+    hasMorePosts.current = true
+    lastRequestParams.current = null
+  }, [debouncedSearchTerm])
+
+  useEffect(() => {
+    if (!lazyData || debouncedSearchTerm !== lastRequestParams.current?.searchTerm) {
+      const params = {
+        endCursorPostId: 0,
+        searchTerm: debouncedSearchTerm,
+      }
+      lastRequestParams.current = params
+      fetchPosts({
+        variables: params,
+      }).then(({ data }) => {
+        hasMorePosts.current = (data?.getPosts.items?.length || 0) > 0
+      })
+    }
+  }, [debouncedSearchTerm])
 
   useGetNewPostsSubscription({
     skip: !!debouncedSearchTerm,
@@ -28,7 +52,7 @@ export const useNormalizedPosts = () => {
         client.cache.modify({
           fields: {
             getPosts(existingPostsRefs = {}, { readField }) {
-              const items = (readField('items', existingPostsRefs) ?? []) as (
+              const items = (readField('items', existingPostsRefs) || []) as (
                 | StoreObject
                 | Reference
               )[]
@@ -47,63 +71,78 @@ export const useNormalizedPosts = () => {
     },
   })
 
-  const lastFetchedIdRef = useRef<number | null>(null)
-  const isFetchingRef = useRef(false)
-  const fetchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const posts = lazyData?.getPosts.items || []
 
-  useEffect(() => {
-    if (inView && !loading && data?.getPosts.items.length && !isFetchingRef.current) {
-      const lastId = data?.getPosts.items[data.getPosts.items.length - 1].id
+  const lastPostElementRef = useCallback(
+    (node: HTMLElement | null) => {
+      if (!node || loading || !hasMorePosts.current) return
 
-      if (lastFetchedIdRef.current === lastId) return
-
-      if (fetchTimeoutRef.current) {
-        clearTimeout(fetchTimeoutRef.current)
+      const currentEndCursor = posts[posts.length - 1]?.id
+      const currentParams = {
+        endCursorPostId: currentEndCursor,
+        searchTerm: debouncedSearchTerm,
       }
 
-      fetchTimeoutRef.current = setTimeout(() => {
-        isFetchingRef.current = true
-        fetchMore({
-          variables: {
-            endCursorPostId: lastId,
-            searchTerm: debouncedSearchTerm,
-          },
-          updateQuery: (prev, { fetchMoreResult }) => {
-            isFetchingRef.current = false
+      if (
+        lastRequestParams.current &&
+        lastRequestParams.current.endCursorPostId === currentParams.endCursorPostId &&
+        lastRequestParams.current.searchTerm === currentParams.searchTerm
+      ) {
+        return
+      }
 
-            if (!fetchMoreResult) return prev
+      const observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting) {
+            lastRequestParams.current = currentParams
 
-            return {
-              getPosts: {
-                ...fetchMoreResult.getPosts,
-                items: [
-                  ...prev.getPosts.items,
-                  ...fetchMoreResult.getPosts.items.filter(
-                    item => !prev.getPosts.items.some(p => p.id === item.id)
-                  ),
-                ],
+            fetchMore({
+              variables: currentParams,
+              updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) {
+                  hasMorePosts.current = false
+                  return prev
+                }
+
+                const newItems = fetchMoreResult.getPosts.items.filter(
+                  item => !prev.getPosts.items.some(p => p.id === item.id)
+                )
+
+                if (newItems.length === 0) {
+                  hasMorePosts.current = false
+                }
+
+                return {
+                  getPosts: {
+                    ...fetchMoreResult.getPosts,
+                    items: [...prev.getPosts.items, ...newItems],
+                  },
+                }
               },
-            }
-          },
-        }).catch(() => {
-          isFetchingRef.current = false
-        })
-      }, 100)
-    }
+            }).catch(() => {
+              hasMorePosts.current = false
+            })
+          }
+        },
+        { threshold: 0.25 }
+      )
 
-    return () => {
-      if (fetchTimeoutRef.current) {
-        clearTimeout(fetchTimeoutRef.current)
-      }
-    }
-  }, [inView, loading, data, fetchMore, debouncedSearchTerm])
+      observer.observe(node)
+      return () => observer.disconnect()
+    },
+    [loading, posts, debouncedSearchTerm]
+  )
 
-  return {
-    posts: data?.getPosts.items ?? [],
-    loading,
-    error,
-    setSearchTerm,
-    searchTerm,
-    lastPostRef,
-  }
+  return useMemo(
+    () => ({
+      posts,
+      loading: loading || networkStatus === NetworkStatus.fetchMore,
+      error,
+      setSearchTerm,
+      searchTerm,
+      lastPostElementRef,
+      hasMorePosts: hasMorePosts.current,
+    }),
+    [posts, loading, networkStatus, error, searchTerm]
+  )
 }

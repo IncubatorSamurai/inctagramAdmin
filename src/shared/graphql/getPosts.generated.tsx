@@ -12,6 +12,9 @@ export type GetAllPostsQuery = {
   __typename?: 'Query'
   getPosts: {
     __typename?: 'PostsPaginationModel'
+    totalCount: number
+    pageSize: number
+    pagesCount: number
     items: Array<{
       __typename?: 'Post'
       description: string
@@ -32,6 +35,9 @@ export type GetAllPostsQuery = {
 export const GetAllPostsDocument = gql`
   query getAllPosts($endCursorPostId: Int, $searchTerm: String) {
     getPosts(endCursorPostId: $endCursorPostId, searchTerm: $searchTerm) {
+      totalCount
+      pageSize
+      pagesCount
       items {
         description
         createdAt

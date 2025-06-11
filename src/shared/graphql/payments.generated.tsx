@@ -11,6 +11,29 @@ export type GetPaymentsByUserQueryVariables = Types.Exact<{
   sortDirection?: Types.InputMaybe<Types.SortDirection>
 }>
 
+export type GetPaymentsByUserQuery = {
+  __typename?: 'Query'
+  getPaymentsByUser: {
+    __typename?: 'PaymentPaginationModel'
+    pagesCount: number
+    page: number
+    pageSize: number
+    totalCount: number
+    items: Array<{
+      __typename?: 'SubscriptionByPaymentModel'
+      id: string
+      businessAccountId: number
+      status: Types.StatusSubscriptionType
+      dateOfPayment?: string | null
+      endDate?: string | null
+      type: Types.SubscriptionType
+      price: number
+      paymentType?: Types.PaymentMethod | null
+      payments: Array<{ __typename?: 'Payment'; id?: number | null }>
+    }>
+  }
+}
+
 export type GetPaymentsQueryVariables = Types.Exact<{
   pageSize?: Types.InputMaybe<Types.Scalars['Int']['input']>
   pageNumber?: Types.InputMaybe<Types.Scalars['Int']['input']>
@@ -96,7 +119,6 @@ export const GetPaymentsByUserDocument = gql`
  *   },
  * });
  */
-
 export function useGetPaymentsByUserQuery(
   baseOptions: Apollo.QueryHookOptions<GetPaymentsByUserQuery, GetPaymentsByUserQueryVariables> &
     ({ variables: GetPaymentsByUserQueryVariables; skip?: boolean } | { skip: boolean })
