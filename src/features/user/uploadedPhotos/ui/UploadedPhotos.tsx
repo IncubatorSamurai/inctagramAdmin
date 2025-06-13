@@ -1,9 +1,10 @@
 'use client'
 import GlobalLoader from '@/entities/loading/loading'
-import { useGetPostsByUserQuery } from '@/shared/graphql'
+import { Typography } from '@/shared/ui/typography'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { toast } from 'react-toastify'
+import { useInfiniteUploadedPhotos } from '../model/useInfiniteUploadedPhotos'
 import s from './UploadedPhotos.module.scss'
 
 type Props = {
@@ -12,34 +13,43 @@ type Props = {
 
 export const UploadedPhotos = ({ userId }: Props) => {
   const t = useTranslations('userProfile')
-  const { data, loading, error } = useGetPostsByUserQuery({
-    variables: { userId: +userId },
-  })
 
-  if (loading && !data) {
+  const { photos, isFetchingMore, error, setLastElementRef, isInitialLoading } =
+    useInfiniteUploadedPhotos({
+      userId: +userId,
+    })
+
+  if (isInitialLoading && !photos.length) {
     return <GlobalLoader />
   }
 
-  if (error && !data) {
+  if (error && !photos.length) {
     toast.error(error.message)
     return <div className={s.errorDisplay}>{t('errorGetPostByUser')}</div>
   }
 
-  const photos = data?.getPostsByUser.items || []
+  if (!isInitialLoading && !photos.length) {
+    return <div className={s.emptyContent}>{t('noUploadedPhotos')}</div>
+  }
 
-  return photos.length > 0 ? (
+  return (
     <div className={s.uploadedPhotosContainer}>
-      {photos?.map(photo => (
+      {photos?.map((photo, i) => (
         <Image
           key={photo.id}
           src={photo.url as string}
           width={234}
           height={228}
           alt="uploaded photo"
+          ref={i === photos.length - 1 ? setLastElementRef : null}
         />
       ))}
+
+      {isFetchingMore && photos.length > 0 && (
+        <Typography variant="regular_text_14" className={s.loading}>
+          {t('loading')}
+        </Typography>
+      )}
     </div>
-  ) : (
-    <div className={s.emptyContent}>{t('noUploadedPhotos')}</div>
   )
 }
