@@ -142,7 +142,8 @@
     "noData": "No data",
     "userName": "UserName",
     "profileLink": "Profile link",
-    "subscriptionDate": "Subscription Date"
+    "subscriptionDate": "Subscription Date",
+    "loading": "Loading..."
   },
   "pagination": {
     "show": "Show",
