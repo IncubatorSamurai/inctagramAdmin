@@ -5,14 +5,8 @@ import Slider from 'react-slick'
 import Link from 'next/link'
 import { useSliderSettings } from '@/shared/ui/slider/CustomSlider'
 
-export type ImageModel = {
-  url: string
-  width: number
-  height: number
-}
-
 export type SliderImagesProps = {
-  images: ImageModel[]
+  images?: Array<{ __typename?: 'ImagePost'; url?: string | null }> | null
   postId: string
   isExpanded: boolean
   userName: string
@@ -26,13 +20,13 @@ export const PublicPostImages = ({ userName, images, postId, isExpanded }: Slide
     sliderClass: s.slider_public,
     dotsClass: s.slider_public_dots,
     arrowsClass: s.slider_public_arrows,
-    totalSlides: images.length,
+    totalSlides: images?.length ?? 0,
   })
 
   return (
     <div className={s.slider_container}>
       <Slider {...settings}>
-        {images.map((image, index) => (
+        {images?.map((image, index) => (
           <Link
             key={`${postId}-${index}`}
             href={`/?postId=${postId}`}
@@ -42,7 +36,7 @@ export const PublicPostImages = ({ userName, images, postId, isExpanded }: Slide
           >
             <div key={`${postId}-${index}`} className={s.slickSlide}>
               <Image
-                src={image.url}
+                src={image.url || '/default-image.png'}
                 alt={`Image for post ${userName}`}
                 width={WIDTH_PUBLIC_IMAGE}
                 height={isExpanded ? EXPANDED_PUBLIC_IMAGE : HEIGHT_PUBLIC_IMAGE}

@@ -13,11 +13,22 @@
   border-radius: 50%;
 }
 
-.public_post_name {
+.public_post_img_text {
   display: flex;
   align-items: center;
+}
+
+.public_user_name {
+  padding-left: 12px;
+}
+
+.public_post_name {
+  display: flex;
   flex-direction: row;
   column-gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+
   padding: 12px 0;
 
   svg {

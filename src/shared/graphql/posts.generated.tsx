@@ -1,8 +1,8 @@
-import * as Types from './types';
+import * as Types from './types'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions = {} as const;
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {} as const
 export type GetPostsByUserQueryVariables = Types.Exact<{
   userId: Types.Scalars['Int']['input'];
   endCursorId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
@@ -10,7 +10,6 @@ export type GetPostsByUserQueryVariables = Types.Exact<{
 
 
 export type GetPostsByUserQuery = { __typename?: 'Query', getPostsByUser: { __typename?: 'PostsByUserModel', pagesCount: number, pageSize: number, totalCount: number, items?: Array<{ __typename?: 'ImagePost', id?: number | null, url?: string | null }> | null } };
-
 
 export const GetPostsByUserDocument = gql`
     query GetPostsByUser($userId: Int!, $endCursorId: Int) {
@@ -23,8 +22,7 @@ export const GetPostsByUserDocument = gql`
       url
     }
   }
-}
-    `;
+`
 
 /**
  * __useGetPostsByUserQuery__
@@ -43,19 +41,43 @@ export const GetPostsByUserDocument = gql`
  *   },
  * });
  */
-export function useGetPostsByUserQuery(baseOptions: Apollo.QueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables> & ({ variables: GetPostsByUserQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(GetPostsByUserDocument, options);
-      }
-export function useGetPostsByUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(GetPostsByUserDocument, options);
-        }
-export function useGetPostsByUserSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(GetPostsByUserDocument, options);
-        }
-export type GetPostsByUserQueryHookResult = ReturnType<typeof useGetPostsByUserQuery>;
-export type GetPostsByUserLazyQueryHookResult = ReturnType<typeof useGetPostsByUserLazyQuery>;
-export type GetPostsByUserSuspenseQueryHookResult = ReturnType<typeof useGetPostsByUserSuspenseQuery>;
-export type GetPostsByUserQueryResult = Apollo.QueryResult<GetPostsByUserQuery, GetPostsByUserQueryVariables>;
+export function useGetPostsByUserQuery(
+  baseOptions: Apollo.QueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables> &
+    ({ variables: GetPostsByUserQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(
+    GetPostsByUserDocument,
+    options
+  )
+}
+export function useGetPostsByUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(
+    GetPostsByUserDocument,
+    options
+  )
+}
+export function useGetPostsByUserSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(
+    GetPostsByUserDocument,
+    options
+  )
+}
+export type GetPostsByUserQueryHookResult = ReturnType<typeof useGetPostsByUserQuery>
+export type GetPostsByUserLazyQueryHookResult = ReturnType<typeof useGetPostsByUserLazyQuery>
+export type GetPostsByUserSuspenseQueryHookResult = ReturnType<
+  typeof useGetPostsByUserSuspenseQuery
+>
+export type GetPostsByUserQueryResult = Apollo.QueryResult<
+  GetPostsByUserQuery,
+  GetPostsByUserQueryVariables
+>
