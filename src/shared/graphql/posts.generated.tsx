@@ -4,24 +4,22 @@ import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {} as const
 export type GetPostsByUserQueryVariables = Types.Exact<{
-  userId: Types.Scalars['Int']['input']
-}>
+  userId: Types.Scalars['Int']['input'];
+  endCursorId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+}>;
 
-export type GetPostsByUserQuery = {
-  __typename?: 'Query'
-  getPostsByUser: {
-    __typename?: 'PostsByUserModel'
-    items?: Array<{ __typename?: 'ImagePost'; id?: number | null; url?: string | null }> | null
-  }
-}
+
+export type GetPostsByUserQuery = { __typename?: 'Query', getPostsByUser: { __typename?: 'PostsByUserModel', pagesCount: number, pageSize: number, totalCount: number, items?: Array<{ __typename?: 'ImagePost', id?: number | null, url?: string | null }> | null } };
 
 export const GetPostsByUserDocument = gql`
-  query GetPostsByUser($userId: Int!) {
-    getPostsByUser(userId: $userId) {
-      items {
-        id
-        url
-      }
+    query GetPostsByUser($userId: Int!, $endCursorId: Int) {
+  getPostsByUser(userId: $userId, endCursorId: $endCursorId) {
+    pagesCount
+    pageSize
+    totalCount
+    items {
+      id
+      url
     }
   }
 `
@@ -39,6 +37,7 @@ export const GetPostsByUserDocument = gql`
  * const { data, loading, error } = useGetPostsByUserQuery({
  *   variables: {
  *      userId: // value for 'userId'
+ *      endCursorId: // value for 'endCursorId'
  *   },
  * });
  */

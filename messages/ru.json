@@ -142,7 +142,8 @@
     "noData": "Нет данных",
     "userName": "Имя пользователя",
     "profileLink": "Ссылка на профиль",
-    "subscriptionDate": "Дата подписки"
+    "subscriptionDate": "Дата подписки",
+    "loading": "Загрузка..."
   },
   "pagination": {
     "show": "Показать",
