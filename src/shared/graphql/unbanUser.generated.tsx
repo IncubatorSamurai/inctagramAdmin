@@ -1,23 +1,22 @@
-import * as Types from './types'
+import * as Types from './types';
 
-import { gql } from '@apollo/client'
-import * as Apollo from '@apollo/client'
-const defaultOptions = {} as const
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+const defaultOptions = {} as const;
 export type UnbanUserMutationVariables = Types.Exact<{
-  userId: Types.Scalars['Int']['input']
-}>
+  userId: Types.Scalars['Int']['input'];
+}>;
 
-export type UnbanUserMutation = { __typename?: 'Mutation'; unbanUser: boolean }
+
+export type UnbanUserMutation = { __typename?: 'Mutation', unbanUser: boolean };
+
 
 export const UnbanUserDocument = gql`
-  mutation UnbanUser($userId: Int!) {
-    unbanUser(userId: $userId)
-  }
-`
-export type UnbanUserMutationFn = Apollo.MutationFunction<
-  UnbanUserMutation,
-  UnbanUserMutationVariables
->
+    mutation UnbanUser($userId: Int!) {
+  unbanUser(userId: $userId)
+}
+    `;
+export type UnbanUserMutationFn = Apollo.MutationFunction<UnbanUserMutation, UnbanUserMutationVariables>;
 
 /**
  * __useUnbanUserMutation__
@@ -36,18 +35,10 @@ export type UnbanUserMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useUnbanUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<UnbanUserMutation, UnbanUserMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<UnbanUserMutation, UnbanUserMutationVariables>(
-    UnbanUserDocument,
-    options
-  )
-}
-export type UnbanUserMutationHookResult = ReturnType<typeof useUnbanUserMutation>
-export type UnbanUserMutationResult = Apollo.MutationResult<UnbanUserMutation>
-export type UnbanUserMutationOptions = Apollo.BaseMutationOptions<
-  UnbanUserMutation,
-  UnbanUserMutationVariables
->
+export function useUnbanUserMutation(baseOptions?: Apollo.MutationHookOptions<UnbanUserMutation, UnbanUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnbanUserMutation, UnbanUserMutationVariables>(UnbanUserDocument, options);
+      }
+export type UnbanUserMutationHookResult = ReturnType<typeof useUnbanUserMutation>;
+export type UnbanUserMutationResult = Apollo.MutationResult<UnbanUserMutation>;
+export type UnbanUserMutationOptions = Apollo.BaseMutationOptions<UnbanUserMutation, UnbanUserMutationVariables>;

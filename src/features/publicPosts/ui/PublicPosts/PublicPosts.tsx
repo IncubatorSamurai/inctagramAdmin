@@ -1,20 +1,16 @@
-import getPublicPosts from '@/shared/api/post/serverRequests/getPublicPosts'
+'use client'
 import s from './PublicPosts.module.scss'
-import { CountRegisteredUsers } from '@/features/publicPosts/ui/CounterRegisteredUsers/CountRegisteredUsers'
-import { PublicPostsList } from '@/features/publicPosts/ui/PublicPostsList/PublicPostsList'
+import { useRouter } from '@/i18n/routing'
+import { useEffect } from 'react'
+import { PATH } from '@/shared/config/routes'
 
-const PublicPosts = async () => {
-  const { items, totalUsers } = await getPublicPosts({
-    pageSize: 4,
-    sortBy: 'createdAt',
-    sortDirection: 'desc',
-  })
+const PublicPosts = () => {
+  const router = useRouter()
 
-  return (
-    <div className={s.public_page}>
-      <CountRegisteredUsers totalUsers={totalUsers} />
-      <PublicPostsList items={items} />
-    </div>
-  )
+  useEffect(() => {
+    router.replace(PATH.SIGNIN)
+  }, [])
+
+  return <div className={s.public_page}></div>
 }
 export default PublicPosts

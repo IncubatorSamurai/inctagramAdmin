@@ -1,50 +1,36 @@
-import * as Types from './types'
+import * as Types from './types';
 
-import { gql } from '@apollo/client'
-import * as Apollo from '@apollo/client'
-const defaultOptions = {} as const
-export type GetNewPostsSubscriptionVariables = Types.Exact<{ [key: string]: never }>
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+const defaultOptions = {} as const;
+export type GetNewPostsSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
-export type GetNewPostsSubscription = {
-  __typename?: 'Subscription'
-  postAdded: {
-    __typename?: 'Post'
-    id: number
-    createdAt: string
-    description: string
-    images?: Array<{ __typename?: 'ImagePost'; url?: string | null }> | null
-    userBan?: { __typename?: 'UserBan'; reason: string } | null
-    postOwner: {
-      __typename?: 'PostOwnerModel'
-      id: number
-      userName: string
-      avatars?: Array<{ __typename?: 'Avatar'; url?: string | null }> | null
+
+export type GetNewPostsSubscription = { __typename?: 'Subscription', postAdded: { __typename?: 'Post', id: number, createdAt: string, description: string, images?: Array<{ __typename?: 'ImagePost', url?: string | null }> | null, userBan?: { __typename?: 'UserBan', reason: string } | null, postOwner: { __typename?: 'PostOwnerModel', id: number, userName: string, avatars?: Array<{ __typename?: 'Avatar', url?: string | null }> | null } } };
+
+
+export const GetNewPostsDocument = gql`
+    subscription getNewPosts {
+  postAdded {
+    id
+    images {
+      url
+    }
+    createdAt
+    description
+    userBan {
+      reason
+    }
+    postOwner {
+      id
+      userName
+      avatars {
+        url
+      }
     }
   }
 }
-
-export const GetNewPostsDocument = gql`
-  subscription getNewPosts {
-    postAdded {
-      id
-      images {
-        url
-      }
-      createdAt
-      description
-      userBan {
-        reason
-      }
-      postOwner {
-        id
-        userName
-        avatars {
-          url
-        }
-      }
-    }
-  }
-`
+    `;
 
 /**
  * __useGetNewPostsSubscription__
@@ -61,17 +47,9 @@ export const GetNewPostsDocument = gql`
  *   },
  * });
  */
-export function useGetNewPostsSubscription(
-  baseOptions?: Apollo.SubscriptionHookOptions<
-    GetNewPostsSubscription,
-    GetNewPostsSubscriptionVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useSubscription<GetNewPostsSubscription, GetNewPostsSubscriptionVariables>(
-    GetNewPostsDocument,
-    options
-  )
-}
-export type GetNewPostsSubscriptionHookResult = ReturnType<typeof useGetNewPostsSubscription>
-export type GetNewPostsSubscriptionResult = Apollo.SubscriptionResult<GetNewPostsSubscription>
+export function useGetNewPostsSubscription(baseOptions?: Apollo.SubscriptionHookOptions<GetNewPostsSubscription, GetNewPostsSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<GetNewPostsSubscription, GetNewPostsSubscriptionVariables>(GetNewPostsDocument, options);
+      }
+export type GetNewPostsSubscriptionHookResult = ReturnType<typeof useGetNewPostsSubscription>;
+export type GetNewPostsSubscriptionResult = Apollo.SubscriptionResult<GetNewPostsSubscription>;
