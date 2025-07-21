@@ -101,7 +101,7 @@ export const PublicModal = ({ post, commentsData, postId, ...props }: PublicModa
           <div className={s.public_content_footer}>
             <div className={s.public_footer_likes}>
               <ul className={s.public_footer_avatars}>
-                {renderLikeAvatars(likesCount, avatarWhoLikes)}
+                {renderLikeAvatars(likesCount!, avatarWhoLikes!)}
               </ul>
               <div className={s.likes}>
                 {likesCount}
