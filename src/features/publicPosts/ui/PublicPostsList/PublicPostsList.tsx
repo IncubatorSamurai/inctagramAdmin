@@ -1,20 +1,25 @@
 'use client'
 import s from './PublicPostsList.module.scss'
-import { Post } from '@/shared/api/post/postApi.types'
 import { PublicPostItem } from '@/features/publicPosts/ui/PublicPostsList/PublicPostItem/PublicPostItem'
+import React from 'react'
+import { GetAllPostsQuery } from '@/shared/graphql/getPosts.generated'
 
-type PublicPostsList = {
-  items: Post[]
+type PostItem = GetAllPostsQuery['getPosts']['items'][number]
+
+type PublicPostsListProps = {
+  items: PostItem[]
+  lastPostElementRef?: React.Ref<HTMLLIElement>
 }
 
-export const PublicPostsList = ({ items }: PublicPostsList) => {
+export const PublicPostsList = ({ items, lastPostElementRef }: PublicPostsListProps) => {
   return (
-    <>
-      <ul className={s.public_posts}>
-        {items.map(item => {
-          return <PublicPostItem item={item} key={String(item.id)} />
-        })}
-      </ul>
-    </>
+    <ul className={s.public_posts}>
+      {items.map((item, index) => {
+        const isLast = index === items.length - 1
+        return (
+          <PublicPostItem key={item.id} item={item} ref={isLast ? lastPostElementRef : undefined} />
+        )
+      })}
+    </ul>
   )
 }
