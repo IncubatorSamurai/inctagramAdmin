@@ -2,7 +2,7 @@
 import s from './PublicPostImages.module.scss'
 import Image from 'next/image'
 import Slider from 'react-slick'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { useSliderSettings } from '@/shared/ui/slider/CustomSlider'
 
 export type SliderImagesProps = {
@@ -27,23 +27,23 @@ export const PublicPostImages = ({ userName, images, postId, isExpanded }: Slide
     <div className={s.slider_container}>
       <Slider {...settings}>
         {images?.map((image, index) => (
-          <Link
-            key={`${postId}-${index}`}
-            href={`/?postId=${postId}`}
-            as={`/?postId=${postId}`}
-            className={s.post_link}
-            scroll={false}
-          >
-            <div key={`${postId}-${index}`} className={s.slickSlide}>
-              <Image
-                src={image.url || '/default-image.png'}
-                alt={`Image for post ${userName}`}
-                width={WIDTH_PUBLIC_IMAGE}
-                height={isExpanded ? EXPANDED_PUBLIC_IMAGE : HEIGHT_PUBLIC_IMAGE}
-                className={isExpanded ? s.expanded_image : s.post_img}
-              />
-            </div>
-          </Link>
+          // <Link
+          //   key={`${postId}-${index}`}
+          //   href={`/?postId=${postId}`}
+          //   as={`/?postId=${postId}`}
+          //   className={s.post_link}
+          //   scroll={false}
+          // >
+          <div key={`${postId}-${index}`} className={s.slickSlide}>
+            <Image
+              src={image.url || '/default-image.png'}
+              alt={`Image for post ${userName}`}
+              width={WIDTH_PUBLIC_IMAGE}
+              height={isExpanded ? EXPANDED_PUBLIC_IMAGE : HEIGHT_PUBLIC_IMAGE}
+              className={isExpanded ? s.expanded_image : s.post_img}
+            />
+          </div>
+          // </Link>
         ))}
       </Slider>
     </div>
